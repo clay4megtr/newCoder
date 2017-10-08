@@ -1,7 +1,8 @@
 package org.clay.Chap1;
 
 /**
- * 把给定字符位置的左右两边互换
+ * 鎶婄粰瀹氬瓧绗︿綅缃殑宸﹀彸涓よ竟浜掓崲
+ * 鏃堕棿澶嶆潅搴(N),鏃堕棿澶嶆潅搴(1) 
  * @author clay
  */
 public class MoveString {
@@ -14,7 +15,7 @@ public class MoveString {
 		
 		int halfLength = n/2;
 		
-		for(int i = 0; i < halfLength; i++){
+		for(int i = 0; i <= halfLength; i++){
 			
 			char temp = array[i];
 			array[i] = array[n - i];
@@ -23,10 +24,22 @@ public class MoveString {
 		return new String(array);
 	}
 	
-	
 	public String swapString(String str, int i){
 		
+		String leftReverse = reverse(str.substring(0, i+1));
+		String rightReverse = reverse(str.substring(i+1, str.length()));
 		
-		return null;
+		String result = reverse(leftReverse + rightReverse);
+		
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		
+		String str = "ABCDE";
+		MoveString ms = new MoveString();
+		
+		String swapString = ms.swapString(str, 2);
+		System.out.println(swapString);
 	}
 }

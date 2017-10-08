@@ -1,7 +1,7 @@
 package org.clay.Chap1;
 
 /**
- * Ðý×ª×Ö·û£º1234  ºÍ     3412  ÊÇÐý×ª×Ö·û
+ * æ—‹è½¬å­—ç¬¦ï¼š1234  å’Œ     3412  æ˜¯æ—‹è½¬å­—ç¬¦
  * @author clay
  */
 public class RotationString {

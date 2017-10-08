@@ -16,11 +16,11 @@ class TreeNode {
 public class PrintBinaryTree {
 
 	/**
-	 * ������������ղ�����ӡ 
-	 * ˼·��
-	 * lastָ�룺��ʾ���ڴ�ӡ�ĵ�ǰ�е����ҽڵ�
-	 * nLastָ�룺��Զָ����һ�е����ҽڵ㣬ԭ���ǣ�ÿ�α�����һ���ڵ㣬�Ͱ�nLastָ�������ҽڵ�
-	 * ��nowָ��last��ʱ�򣬾�˵��nlast�Ѿ�ָ������һ�����ұߵĽڵ��ˣ��ð�last = nlast��ʱ���ˡ�
+	 * 层序遍历：按照层来打印 
+	 * 思路：
+	 * last指针：表示正在打印的当前行的最右节点
+	 * nLast指针：永远指向下一行的最右节点，原因是，每次遍历到一个节点，就把nLast指向它的右节点
+	 * 当now指向last的时候，就说明nlast已经指向下面一层最右边的节点了，该把last = nlast的时候了。
 	 */
 	public void PrintBinaryTree(TreeNode root) {
 
@@ -34,8 +34,8 @@ public class PrintBinaryTree {
 
 		while (!queue.isEmpty()) {
 
-			now = queue.removeFirst(); // now�ʹ���ÿ��Ҫ��ջ��˳����Ϊlastָ�����Զ�ǵ�ǰ�е����һ���ڵ㣬����nowָ��last���ʹ����û����ˡ�
-			System.out.print(now.val + " ,"); // ����ÿ�ε������ӵ�tmp�м����С�
+			now = queue.removeFirst(); // now就代表每次要出栈的顺序。因为last指向的永远是当前行的最后一个节点，所以now指向last，就代表该换行了。
+			System.out.print(now.val + " ,"); // 否则，每次弹出都加到tmp中间结果中。
 			if (now.left != null) {
 				queue.add(now.left);
 				nLast = now.left;
@@ -45,8 +45,8 @@ public class PrintBinaryTree {
 				nLast = now.right;
 			}
 
-			if (now == last) { // ��nowָ������last���ʹ�����һ�б������ˣ���ʱ��
-										// ��һ�е����ݴ洢��res�У�Ȼ���tmp��ա�
+			if (now == last) { // 当now指向了了last，就代表这一行遍历完了，此时把
+										// 这一行的数据存储到res中，然后把tmp清空。
 				System.out.println();
 				last = nLast;
 			}

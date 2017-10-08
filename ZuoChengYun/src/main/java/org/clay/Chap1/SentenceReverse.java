@@ -1,7 +1,7 @@
 package org.clay.Chap1;
 
 /**
- * 旋转句子里的单词
+ * 鏃嬭浆鍙ュ瓙閲岀殑鍗曡瘝
  * @author clay
  */
 public class SentenceReverse {

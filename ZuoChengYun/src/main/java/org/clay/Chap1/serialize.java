@@ -3,13 +3,13 @@ package org.clay.Chap1;
 import java.util.ArrayList;
 
 /**
- * Ê÷µÄĞòÁĞ»¯ºÍ·´ĞòÁĞ»¯
+ * æ ‘çš„åºåˆ—åŒ–å’Œååºåˆ—åŒ–
  * @author clay
  */
 public class serialize {
 
 	/**
-	 * ĞòÁĞ»¯- Ç°Ğò
+	 * åºåˆ—åŒ–- å‰åº
 	 */
 	public void serialize(TreeNode root, StringBuilder builder){
 		
@@ -23,14 +23,14 @@ public class serialize {
 	}
 	
 	/**
-	 * Í¨¹ıÇ°Ğò±éÀúµÄÊı¾İĞòÁĞ·´ÏòÉú³É¶ş²æÊ÷
+	 * é€šè¿‡å‰åºéå†çš„æ•°æ®åºåˆ—åå‘ç”ŸæˆäºŒå‰æ ‘
 	 * 	 * 				A
 	 *  	B				C
 	 * D		E					F
 	 * 
 	 * ABD##E##C#F##
 	 * 
-	 * ÓÃArrayListµÄÔ­ÒòÊÇ¿ÉÒÔÖ±½ÓremoveµÚÒ»¸öÔªËØ£¬·½±ãºóĞøµİ¹é
+	 * ç”¨ArrayListçš„åŸå› æ˜¯å¯ä»¥ç›´æ¥removeç¬¬ä¸€ä¸ªå…ƒç´ ï¼Œæ–¹ä¾¿åç»­é€’å½’
 	 */
 	public TreeNode createBinaryTree(ArrayList<String> data){
 	
