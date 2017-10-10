@@ -37,7 +37,7 @@ public class LexicoOrder {
 		
 		LexicoOrder lo = new LexicoOrder();
 		
-		String[] strs = new String[]{"abc","de"};
+		String[] strs = new String[]{"b","ba"};
 		
 		String res = lo.findSmalllest(strs, 2);
 		System.out.println(res);
