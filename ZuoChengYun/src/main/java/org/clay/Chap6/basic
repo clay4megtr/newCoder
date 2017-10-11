@@ -1,0 +1,6 @@
+O(logN)
+
+循环数组
+
+mid = left + (right-left)/2
+

@@ -28,6 +28,7 @@ public class SentenceReverse {
 		StringBuilder builder = new StringBuilder();
 		
 		String reverseSentence = reverse(snetence);
+		System.out.println("---" + reverseSentence);
 		
 		String[] split = reverseSentence.split(" ");
 		

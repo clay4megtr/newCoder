@@ -9,7 +9,7 @@ package org.clay.Chap5;
  */
 public class DividNode {
 
-	class ListNode{
+	static class ListNode{
 		int val;
 		ListNode next = null;
 		ListNode(int val){
@@ -58,6 +58,28 @@ public class DividNode {
 			smallTail.next = bigHead;
 		}
 		
-		return smallTail == null ? bigHead : smallTail;
+		return smallTail == null ? bigHead : smallHead;
+	}
+	
+	public static void main(String[] args) {
+		DividNode dn = new DividNode();
+		
+		ListNode root1 = new ListNode(1);
+		ListNode root2 = new ListNode(5);
+		ListNode root3 = new ListNode(3);
+		ListNode root4 = new ListNode(4);
+		ListNode root5 = new ListNode(2);
+		
+		root1.next = root2;
+		root2.next = root3;
+		root3.next = root4;
+		root4.next = root5;
+		
+		ListNode deleteNode = dn.divid(root1, 3);
+		
+		while(deleteNode != null){
+			System.out.println(deleteNode.val);
+			deleteNode = deleteNode.next;
+		}
 	}
 }

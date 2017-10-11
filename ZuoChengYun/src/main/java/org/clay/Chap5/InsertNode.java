@@ -32,7 +32,6 @@ public class InsertNode {
 			tmp = newNode;
 		}
 		tmp.next=head;//环形链表
-		
 		ListNode pre = head;
 		ListNode cur = head.next;
 	

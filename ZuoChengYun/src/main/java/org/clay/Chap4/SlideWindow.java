@@ -39,9 +39,7 @@ public class SlideWindow {
 			return arr;   //如果窗口大小为1， 直接返回数组即可
 		}
 		Deque<Integer> deq = new LinkedList<>();  //双端队列
-		
 		List<Integer> res = new ArrayList<>();
-        
         for(int i=0; i<n; i++){
             
         	//如果qmax为空，或者取出当前deque队尾存放的下标j 满足 arr[j] > array[i], 
@@ -68,7 +66,6 @@ public class SlideWindow {
         } 
         return (Integer[])res.toArray(new Integer[n-w+1]);
 	}
-
 	public static void main(String[] args) {
 
 		SlideWindow mw = new SlideWindow();
