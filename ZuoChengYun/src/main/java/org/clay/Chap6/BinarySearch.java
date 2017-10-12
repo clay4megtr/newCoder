@@ -13,7 +13,7 @@ public class BinarySearch {
 	public int iterator(int[] array, int val){
 		
 		int start = 0;
-		int end = array.length;
+		int end = array.length-1;
 		int middle = 0;
 		
 		while(start <= end){
