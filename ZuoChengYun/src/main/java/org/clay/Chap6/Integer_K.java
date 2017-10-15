@@ -14,11 +14,12 @@ public class Integer_K {
         long mm = 1000000007;  
         if(N == 1) return k;  
         if(N == 0) return 0;  
-        for(;N>0;N>>=1){  
-            if((N&1)!=0){//都为1 则为1 0000 0001  
+        
+        for(;N>0;N>>=1){  //N>>=1  就是把N除以2，即 右移一位， 
+            if((N&1)!=0){ //右移一位然后和1比较，如果与的结果是1，说明此位置是1，也就说明该乘上对应的K的值
                 res = res * temp;  
             }  
-            temp = (temp*temp) % mm;  
+            temp = (temp*temp) % mm; //temp对应的值依次为k的1,2,4,8,16,32,64...次方， 
             res  = res % mm;  
         }  
        return  (int) res;  
