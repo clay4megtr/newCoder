@@ -31,7 +31,7 @@ public class CompleteBinaryTree {
 		TreeNode nLast = null;
 		TreeNode now = null;
 		
-		boolean leaf = true; // 叶子结点
+		boolean leaf = true; //一开始默认当前节点有左孩子。
 		
 		LinkedList<TreeNode> queue = new LinkedList<>();
 		queue.add(head);
