@@ -35,7 +35,7 @@ public class PrintBinaryTree {
 		while (!queue.isEmpty()) {
 
 			now = queue.removeFirst(); // now就代表每次要出栈的顺序。因为last指向的永远是当前行的最后一个节点，所以now指向last，就代表该换行了。
-			System.out.print(now.val + " ,"); // 否则，每次弹出都加到tmp中间结果中。
+			System.out.print(now.val + " ,");
 			if (now.left != null) {
 				queue.add(now.left);
 				nLast = now.left;
@@ -46,7 +46,6 @@ public class PrintBinaryTree {
 			}
 
 			if (now == last) { // 当now指向了了last，就代表这一行遍历完了，此时把
-										// 这一行的数据存储到res中，然后把tmp清空。
 				System.out.println();
 				last = nLast;
 			}

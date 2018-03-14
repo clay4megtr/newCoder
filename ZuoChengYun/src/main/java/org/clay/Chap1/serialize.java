@@ -24,7 +24,7 @@ public class serialize {
 	
 	/**
 	 * 通过前序遍历的数据序列反向生成二叉树
-	 * 	 * 				A
+	 * 	 			A
 	 *  	B				C
 	 * D		E					F
 	 * 
