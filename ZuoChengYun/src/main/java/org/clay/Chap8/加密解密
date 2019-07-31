@@ -1,8 +1,0 @@
-异或运算
-
-明文text，  给定密码pw，    假设密文为cipher
-
-cipher = text ^ pw;
-text = cipher ^ pw = (text ^ pw) ^ pw
-				   = text ^ (pw ^ pw)
-				   = text
