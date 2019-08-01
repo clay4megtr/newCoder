@@ -10,36 +10,37 @@ public class MaxGap {
         }
 
         int len = arr.length;
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
+        int min_value = Integer.MAX_VALUE;
+        int max_value = Integer.MIN_VALUE;
 
         for(int i = 0; i < arr.length; i++){
-            max = Math.max(max,arr[i]);
-            min = Math.min(min,arr[i]);
+            min_value = Math.min(min_value,arr[i]);
+            max_value = Math.max(max_value,arr[i]);
         }
-
-        if(max == min){
+        if (min_value == max_value) {//最大值和最小值相等，返回0
             return 0;
         }
 
-        boolean[] hasNum = new boolean[len+1];
-        int[] mins = new int[len+1];
-        int[] maxs = new int[len+1];
+        int[] mins = new int[arr.length+1];
+        int[] maxs = new int[arr.length+1];
+        boolean[] hasNum = new boolean[arr.length+1];
 
         for(int i = 0; i < arr.length; i++){
-            int bid = bucket(arr[i],len,min,max);
-            hasNum[bid] = true;
-            mins[bid] = arr[i] < mins[bid] ? arr[i] : mins[bid];
-            maxs[bid] = arr[i] > maxs[bid] ? arr[i] : maxs[bid];
+            int bid = bucket(arr[i],arr.length,min_value,max_value);
+            maxs[bid] = hasNum[bid] ? Math.max(maxs[bid],arr[i]) : arr[i];//对应的桶中存在的最大值。
+            mins[bid] = hasNum[bid] ? Math.min(mins[bid],arr[i]) : arr[i];//对应的桶中存在的最小值。
+            hasNum[bid] = true;//对应的桶中存入值了。
         }
 
+        //上一个桶的最大值
+        int last_max = maxs[0];
         int res = 0;
-        int lastMax = maxs[0];
 
-        for (int i = 0; i < arr.length; i++){
+        for(int i = 1; i <= len; i++){
             if(hasNum[i]){
-                res = Math.max(res,mins[i] - lastMax);
-                lastMax = maxs[i];
+                //就和上一次非空桶的最大值相减
+                res = Math.max(res,mins[i] - last_max);  //和上一次取得的结果进行比较，取大的。
+                last_max = maxs[i];  //把lastMax置为当前桶的最大值，供下一个非空桶的最小值相减。
             }
         }
 

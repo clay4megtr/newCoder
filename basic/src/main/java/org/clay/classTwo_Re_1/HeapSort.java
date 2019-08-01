@@ -6,32 +6,42 @@ public class HeapSort {
 
     public static void heapSort(int[] arr){
 
+        if (arr == null || arr.length < 2) {
+            return;
+        }
         for(int i = 0; i < arr.length; i++){
             heapInsert(arr,i);
         }
+        int heap_size = arr.length;  //堆大小初始化为数组长度
 
-        int heapSize = arr.length;
-        swap(arr,0,--heapSize);
+        swap(arr,0,--heap_size);
 
-        while(heapSize > 0){
-            heapify(arr,0,heapSize);
-            swap(arr,0,--heapSize);
+        while(heap_size > 0){
+            heapify(arr,0,heap_size);
+            swap(arr,0,--heap_size);
         }
     }
 
+    /**
+     * index位置索引下沉的过程
+     * @param arr
+     * @param index
+     * @param heapSize
+     */
     public static void heapify(int[] arr, int index,int heapSize){
-
-        int left = (2*index) + 1;
+        int left = index * 2 + 1;
 
         while(left < heapSize){
-            int largest = arr[left] > arr[left+1] ? left : left+1;
-            largest = arr[index] > arr[largest] ? index : largest;
+            int largest = (left + 1) < heapSize && arr[left+1] > arr[left] ? (left+1) : left;
+
+            largest = arr[largest] > arr[index] ? largest : index;
 
             if(largest == index){
                 break;
             }
+            swap(arr,largest,index);
             index = largest;
-            left = (2*index) + 1;
+            left = index * 2 + 1;
         }
     }
 
@@ -40,9 +50,9 @@ public class HeapSort {
      */
     public static void heapInsert(int[] arr,int index){
 
-        while(arr[index] > arr[(index-1) / 2]){
+        while(arr[index] > arr[(index-1)/2]){
             swap(arr,index,(index-1) / 2);
-            index = (index-1) / 2;
+            index = (index-1)/2;
         }
     }
 
