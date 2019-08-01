@@ -12,12 +12,12 @@ public class MergeSort {
     }
 
     public static void mergeSort(int[] arr,int left,int right){
-
         if(left == right){
             return;
         }
 
-        int mid = left + (right - left) / 2;
+        int mid = (left+right) / 2;
+
         mergeSort(arr,left,mid);
         mergeSort(arr,mid+1,right);
         merge(arr,left,mid,right);
@@ -26,27 +26,31 @@ public class MergeSort {
     //外排的过程
     private static void merge(int[] arr, int left, int mid, int right) {
 
-        int[] help = new int[right - left + 1];//辅助数组
-        int i = 0;
-        //两个指针分别指向两个待外排数组的第一个值
-        int p1 = left;
-        int p2 = mid+1;
+        int[] help = new int[right-left+1];
 
-        while(p1 <= mid && p2 <= right){
+        int left_index = left;
+        int right_index = mid + 1;
+        int help_index = 0;
 
-            help[i++] = arr[p1] < arr[p2] ?  arr[p1++] : arr[p2++];
+        while(left_index <= mid && right_index <= right){
+            if(arr[left_index] < arr[right_index]){
+                help[help_index++] = arr[left_index++];
+            }else{
+                help[help_index++] = arr[right_index++];
+            }
         }
 
-        while(p1 <= mid){
-            help[i++] = arr[p1++];
+        while(left_index <= mid){
+            help[help_index++] = arr[left_index++];
         }
 
-        while(p2 <= right){
-            help[i++] = arr[p2++];
+        while(right_index <= right){
+            help[help_index++] = arr[right_index++];
         }
 
-        for(i = 0; i < help.length; i++){
-            arr[left++] = help[i];
+        help_index = 0;
+        while(left <= right){
+            arr[left++] = help[help_index++];
         }
     }
 
