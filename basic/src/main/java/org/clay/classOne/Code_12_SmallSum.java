@@ -23,31 +23,31 @@ public class Code_12_SmallSum {
         return mergeSort(arr, l, mid) + mergeSort(arr, mid + 1, r) + merge(arr, l, mid, r);
     }
 
-    private static int merge(int[] arr, int l, int mid, int r) {
+    private static int merge(int[] arr, int left, int mid, int right) {
 
-        int[] help = new int[r - l + 1];
-        int i = 0;
-        int p1 = l;
-        int p2 = mid + 1;
+        int[] help = new int[right - left + 1];
+        int help_index = 0;
+        int left_index = left;
+        int right_index = mid + 1;
         int res = 0;
 
-        while (p1 <= mid && p2 <= r) {
-            if (arr[p1] < arr[p2]) {
-                res += (r - p2 + 1) * arr[p1];
-                help[i++] = arr[p1++];
+        while (left_index <= mid && right_index <= right) {
+            if (arr[left_index] < arr[right_index]) {
+                res += (right - right_index + 1) * arr[left_index];
+                help[help_index++] = arr[left_index++];
             } else {
-                help[i++] = arr[p2++];
+                help[help_index++] = arr[right_index++];
             }
         }
 
-        while (p1 <= mid) {
-            help[i++] = arr[p1++];
+        while (left_index <= mid) {
+            help[help_index++] = arr[left_index++];
         }
-        while (p2 <= r) {
-            help[i++] = arr[p2++];
+        while (right_index <= right) {
+            help[help_index++] = arr[right_index++];
         }
-        for(i = 0; i < help.length; i++){
-            arr[l++] = help[i];
+        for(help_index = 0; help_index < help.length; help_index++){
+            arr[left++] = help[help_index];
         }
 
         return res;

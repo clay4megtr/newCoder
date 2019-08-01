@@ -7,23 +7,25 @@ package org.clay.classTwo_Re_1;
 public class NetherLandFlag {
 
     //返回左右边界
-    public static int[] partition(int[] arr,int left,int right, int num){
+    public static int[] partition(int[] arr,int left,int right, int target){
 
         int less = left - 1;
         int more = right + 1;
         int cur = left;
 
         while(cur < more){
-            if(arr[cur] < num){
-                swap(arr,++less,cur);
+
+            if(arr[cur] < target){
+                swap(arr,cur,++less);
                 cur++;
-            }else if(arr[cur] > num){
-                swap(arr,--more,cur);
+            }else if(arr[cur] > target){
+                swap(arr,cur,--more);
             }else{
                 cur++;
             }
         }
-        return new int[]{less+1,more-1};
+
+        return new int[]{less,more};
     }
 
     public static void swap(int[] arr, int t1,int t2){
@@ -60,6 +62,5 @@ public class NetherLandFlag {
         printArray(test);
         System.out.println(res[0]);
         System.out.println(res[1]);
-
     }
 }

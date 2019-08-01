@@ -1,5 +1,8 @@
 package org.clay.classOne_Re_1;
 
+/**
+ * 题意可以转化为求每个数字右边有多少个数字比它大，求最终的和
+ */
 public class SmallSum {
 
     public static Integer smallSum(int[] arr) {
@@ -15,40 +18,45 @@ public class SmallSum {
             return 0;
         }
 
-        int mid = left + (right - left) / 2;
-        return mergeSort(arr,left,mid) +  mergeSort(arr,mid+1,right) + merge(arr,left,mid,right);
+        int mid = (left + right) / 2;
+        return mergeSort(arr,left,mid) + mergeSort(arr,mid+1,right) + merge(arr,left,mid,right);
     }
 
     //外排的过程
     private static Integer merge(int[] arr, int left, int mid, int right) {
 
-        int[] help = new int[right - left + 1];//辅助数组
-        int i = 0;
-        //两个指针分别指向两个待外排数组的第一个值
-        int p1 = left;
-        int p2 = mid+1;
+        int[] help = new int[right-left+1];
 
+        int left_index = left;
+        int right_index = mid+1;
+        int help_index = 0;
         int res = 0;
-        while(p1 <= mid && p2 <= right){
 
-            if(arr[p1] < arr[p2]){
-                res += (right - p2 + 1) * arr[p1];  //注意：这里要先赋值，再移动p1，否则结果就不对了
-                help[i++] = arr[p1++];
+        while(left_index <= mid && right_index <= right){
+            if(arr[left_index] < arr[right_index]){
+                res += (right - right_index + 1) * arr[left_index];   //这里就是加速的过程，每次右边榨的时候，是分批榨的，而不是一个一个榨的，
+                help[help_index++] = arr[left_index++];
             }else{
-                help[i++] = arr[p2++];
+                help[help_index++] = arr[right_index++];
             }
         }
 
-        while(p1 <= mid){
-            help[i++] = arr[p1++];
+        /**
+         * 为什么这两种情况不用榨小和？
+         * 假设左边的数组取完了，说明已经没的可榨了，因为每次榨的就是左边的小和，
+         * 假设右边的数组取完了，说明左边这个数组当前的这个数字已经是最大的了；右边已经没有数字比它大了，此时也不用榨了，
+         */
+        while(left_index <= mid){
+            help[help_index++] = arr[left_index++];
         }
 
-        while(p2 <= right){
-            help[i++] = arr[p2++];
+        while(right_index <= right){
+            help[help_index++] = arr[right_index++];
         }
 
-        for(i = 0; i < help.length; i++){
-            arr[left++] = help[i];
+        help_index = 0;
+        while(left <= right){
+            arr[left++] = help[help_index++];
         }
 
         return res;
