@@ -8,43 +8,32 @@ public class ZigZagPrintMatrix {
         int aC = 0;
 
         int bR = 0;
-        int bC = 0;     //B往下，往右
+        int bC = 0;
 
-        int down = matrix.length - 1;
-        int right = matrix[0].length - 1;
+        int endR = matrix.length-1;      //结束行
+        int endC = matrix[0].length-1;   //结束列
 
-        boolean f = false;
-
-        while(aR <= down && bC <= right){
-
-            print(matrix,aR,aC,bR,bC,f);
-
-            if(aC < right){     //A往右，往下, 注意：这里等于right的时候，就不能加了。
-                aC++;
-            }else {
-                aR++;
-            }
-
-
-            if(bR < down){
-                bR++;
-            }else{
-                bC++;
-            }
-
-            f = !f;
+        boolean fromUp = false;
+        while(aR <= endR){
+            print(matrix,aR,aC,bR,bC,fromUp);
+            aR = (aC == endC) ? aR + 1 : aR;
+            aC = (aC == endC) ? aC : aC + 1;
+            bC = (bR == endR) ? bC + 1 : bC;
+            bR = (bR == endR) ? bR : bR + 1;
+            fromUp = !fromUp;
         }
+        System.out.println();
     }
 
-    public static void print(int[][] arr, int aR, int aC, int bR, int bC, boolean f){
+    public static void print(int[][] matrix, int aR, int aC, int bR, int bC, boolean f){
 
-        if(f){              //从右上到左下
+        if(f){  //从上往下打印
             while(aR <= bR && aC >= bC){
-                System.out.println(arr[aR++][aC--]);
+                System.out.println(matrix[aR++][aC--]);
             }
-        }else{
+        }else{  //从下网上打印
             while(bR >= aR && bC <= aC){
-                System.out.println(arr[bR--][bC++]);
+                System.out.println(matrix[bR--][bC++]);
             }
         }
     }
@@ -54,4 +43,3 @@ public class ZigZagPrintMatrix {
         printMatrixZigZag(matrix);
     }
 }
-

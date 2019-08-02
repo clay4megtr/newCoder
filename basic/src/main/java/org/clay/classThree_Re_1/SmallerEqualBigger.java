@@ -20,48 +20,45 @@ public class SmallerEqualBigger {
         Node eT = null;
         Node bH = null;
         Node bT = null;
-        Node next = null; // save next node
-        while(head != null){
-            next = head.next;
-            head.next = null;//这里要解散head节点之后，因为后面要把head赋值给很多中间值。
-            if(head.value < num){
+
+        Node root = head;
+
+        while(root != null){
+
+            Node next = root.next;
+            root.next = null;
+
+            if(root.value < num){
                 if(sH == null){
-                    sH = head;
-                    sT = head;
+                    sH = root;
+                    sT = root;
                 }else{
-                    sT.next = head;
-                    sT = head;
+                    sT.next = root;
                 }
-            }else if(head.value == num){
+            }else if(root.value == num){
                 if(eH == null){
-                    eH = head;
-                    eT = head;
+                    eH = root;
+                    eT = root;
                 }else{
-                    eT.next = head;
-                    eT = head;
+                    eT.next = root;
                 }
             }else{
                 if(bH == null){
-                    bH = head;
-                    bT = head;
+                    bH = root;
+                    bT = root;
                 }else{
-                    bT.next = head;
-                    bT = head;
+                    bT.next = root;
                 }
             }
-            head = next;
+            root = next;
         }
 
         if(sT != null){
             sT.next = eH;
-            if(eT == null){
-                eT = sT;
-            }
+            eT = eT == null ? sT : eT;
         }
-
-        // all reconnect
-        if (eT != null) {
-            eT.next = bH;
+        if(eT != null){
+            eT.next = bT;
         }
 
         return sH != null ? sH : eH != null ? eH : bH;

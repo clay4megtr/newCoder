@@ -20,7 +20,7 @@ public class CopyListWithRandom {
      */
     public static Node copyListWithRand1(Node head) {
 
-        HashMap<Node,Node> map = new HashMap<Node, Node>();
+        HashMap<Node,Node> map = new HashMap<>();
 
         Node cur = head;
         while(cur != null){
