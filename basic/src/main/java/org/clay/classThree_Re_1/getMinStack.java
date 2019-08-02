@@ -5,18 +5,20 @@ import java.util.Stack;
 public class getMinStack {
 
     public static class MyStack {
-        private Stack<Integer> dataStack;
-        private Stack<Integer> getMinStack;
 
-        private void push(Integer x){
-            dataStack.push(x);
+        private Stack<Integer> dataStack = new Stack();
+        private Stack<Integer> getMinStack = new Stack();
+
+
+        private void push(int element){
+            dataStack.push(element);
             if(getMinStack.isEmpty()){
-                getMinStack.push(x);
+                getMinStack.push(element);
             }else{
-                if(x < getMinStack.peek()){
-                    getMinStack.push(x);
-                }else{
+                if(element > getMinStack.peek()){
                     getMinStack.push(getMinStack.peek());
+                }else{
+                    getMinStack.push(element);
                 }
             }
         }

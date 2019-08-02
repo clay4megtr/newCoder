@@ -1,25 +1,38 @@
 package org.clay.classThree_Re_1;
 
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 public class StackAndQueueConvert {
 
+    /**
+     * 两个栈实现队列
+     */
     public static class TwoStacksQueue {
+        private Stack<Integer> data1;
+        private Stack<Integer> data2;
 
-        private Stack<Integer> s1 = new Stack<Integer>();
-        private Stack<Integer> s2 = new Stack<Integer>();
-
-        private void add(Integer x){
-            s1.push(x);
+        public TwoStacksQueue(){
+            data1 = new Stack<Integer>();
+            data2 = new Stack<Integer>();
         }
-        private Integer poll(){
-            if(s2.isEmpty()){
-                while(!s1.isEmpty()){
-                    s2.push(s1.pop());
+
+        public void push(int element){
+            data1.push(element);
+        }
+
+        public Integer pop(){
+            if(data2.isEmpty() && data1.isEmpty()){
+                throw new RuntimeException("没有元素");
+            }
+
+            if(data2.isEmpty()){
+                while(!data1.isEmpty()){
+                    data2.push(data1.pop());
                 }
             }
-            return s2.pop();
+            return data2.pop();
         }
     }
 
@@ -27,26 +40,29 @@ public class StackAndQueueConvert {
      * 两个队列实现栈
      */
     public static class TwoQueuesStack {
-        private Queue<Integer> data;
-        private Queue<Integer> help;
 
-        private void push(Integer x){
-            data.add(x);
+        private Queue<Integer> data = new LinkedList<Integer>();
+        private Queue<Integer> help = new LinkedList<Integer>();
+
+
+        public void push(int element){
+            data.add(element);
         }
 
-        private Integer pop(Integer x){
+        public Integer poll(){
+            if(data.size() == 0){
+                throw new RuntimeException("没有元素");
+            }
 
-            while(data.size() > 1){
+            while(data.size() != 1){
                 help.add(data.poll());
             }
-            Integer res = data.poll();
-
+            int res = data.poll();
             Queue<Integer> temp = data;
             data = help;
             help = temp;
 
             return res;
         }
-
     }
 }

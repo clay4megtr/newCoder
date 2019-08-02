@@ -10,29 +10,26 @@ public class RotateMatrix {
         //左上角
         int lR = 0;
         int lC = 0;
-        //右下角
-        int rR = matrix.length - 1;
-        int rC = matrix.length - 1;
 
-        while(lR < rR && lC < rC){
+        //右下角
+        int rR = matrix.length-1;
+        int rC = matrix[0].length-1;
+
+        while(lR < rR){
             print(matrix,lR++,lC++,rR--,rC--);
         }
     }
 
-    public static void print(int[][] arr, int lR, int lC, int rR, int rC){
+    public static void print(int[][] matrix, int lR, int lC, int rR, int rC){
 
         int times = rC - lC;
-
-        int tmp = 0;
-        //其实这里的过程就是一个复杂的t=a,a=b,b=t 的过程
         for(int i = 0; i < times; i++){
-            int temp = arr[lR][lC + i];
-            arr[lR][lC + i] = arr[rR - i][lC];//上面一行被左边一列替换掉
-            arr[rR - i][lC] = arr[rR][rC - i];//左边一列被下面一行替换掉
-            arr[rR][rC - i] = arr[lR + i][rC];//下面一行被右面一列替换掉
-            arr[lR + i][rC] = temp;           //右面一列被上面一行替换掉
+            int tmp = matrix[lR][lR+i];
+            matrix[lR][lR+i] = matrix[rR-i][lC];
+            matrix[rR-i][lC] = matrix[rR][rC-i];
+            matrix[rR][rC-i] = matrix[lR+i][rC];
+            matrix[lR+i][rC] = tmp;
         }
-
     }
 
     public static void printMatrix(int[][] matrix) {

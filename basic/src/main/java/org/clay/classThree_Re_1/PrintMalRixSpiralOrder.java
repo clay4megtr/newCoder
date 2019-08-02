@@ -12,52 +12,37 @@ public class PrintMalRixSpiralOrder {
         int lC = 0;
 
         //右下角
-        int rR = matrix.length - 1;
-        int rC = matrix[0].length - 1;
+        int rR = matrix.length-1;
+        int rC = matrix[0].length-1;
 
-        while(lR < rR && lC < rC){
+        while(lR < rR){
             print(matrix,lR++,lC++,rR--,rC--);
         }
     }
 
-    public static void print(int[][] arr, int lR, int lC, int rR, int rC) {
+    public static void print(int[][] matrix, int lR, int lC, int rR, int rC) {
 
-        if (lR == rR) {                             //一行
-            for (int i = lC; i <= rC; i++) {
-                System.out.print(arr[lR][i] + " ");
-            }
-        } else if (lC == rC) {                      //一列
-            for (int i = lR; i <= rR; i++) {
-                System.out.print(arr[i][lC] + " ");
-            }
-        } else {
+        int oldlC = lC;
+        int oldlR = lR;
 
-            int lCtem = lC;
-            int lRTem = lR;
+        //打印上边的行
+        while(rC > lC){
+            System.out.println(matrix[lR][lC++]);  //1,2,3     lC
+        }
 
-            //先打印上行
-            while (lC < rC) {
-                System.out.println(arr[lR][lC]);
-                lC++;
-            }
+        //打印右边的列
+        while(lR < rR){
+            System.out.println(matrix[lR++][rC]); //4,8,12      lR
+        }
 
-            //打印右列
-            while (lR < rR) {
-                System.out.println(arr[lR][rC]);
-                lR++;
-            }
+        //打印下边的行
+        while(rC > oldlC){
+            System.out.println(matrix[rR][rC--]); //16,15,14
+        }
 
-            //打印下行
-            while (rC > lCtem) {
-                System.out.println(arr[rR][rC]);
-                rC--;
-            }
-
-            //打印左列
-            while (rR > lRTem) {
-                System.out.println(arr[rR][lCtem]);
-                rR--;
-            }
+        //打印左边的列
+        while(rR > oldlR){
+            System.out.println(matrix[rR--][rC]);  //13,9,5
         }
     }
 
