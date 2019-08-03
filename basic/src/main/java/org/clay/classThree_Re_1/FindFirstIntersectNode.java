@@ -74,13 +74,14 @@ public class FindFirstIntersectNode {
      * 肯定是个Y结构
      */
     public static Node noLoop(Node head1, Node head2) {
-        if (head1 == null || head2 == null) {
+
+        if(head1 == null || head2 == null){
             return null;
         }
-        int count = 0;
 
         Node cur1 = head1;
         Node cur2 = head2;
+        int count = 0;
 
         while(cur1.next != null){
             count++;
@@ -89,26 +90,24 @@ public class FindFirstIntersectNode {
 
         while(cur2.next != null){
             count--;
-            cur2 = cur2.next;
+            cur2 =cur2.next;
         }
 
         if(cur1 != cur2){
             return null;
         }
 
-        cur1 = count > 0 ? head1 : head2;  //长的内个
+        cur1 = count > 0 ? head1 : head2;
         cur2 = cur1 == head1 ? head2 : head1;
 
         while(count > 0){
             cur1 = cur1.next;
             count--;
         }
-
         while(cur1 != cur2){
             cur1 = cur1.next;
             cur2 = cur2.next;
         }
-
         return cur1;
     }
 
@@ -122,37 +121,44 @@ public class FindFirstIntersectNode {
      * 看图片
      */
     public static Node bothLoop(Node head1, Node loop1, Node head2, Node loop2) {
+
         Node cur1 = null;
         Node cur2 = null;
-        if (loop1 == loop2) {//第二种情况，和两个无环链表的相交问题相同。只是以loop1和loop2做结尾。
+
+        if(loop1 == loop2){
+
             cur1 = head1;
             cur2 = head2;
-            int n = 0;
-            while (cur1 != loop1) {
-                n++;
+            int count = 0;
+
+            while(cur1 != loop1){
+                count++;
                 cur1 = cur1.next;
             }
-            while (cur2 != loop2) {
-                n--;
+
+            while(cur2 != loop1){
+                count--;
                 cur2 = cur2.next;
             }
-            cur1 = n > 0 ? head1 : head2;
+            cur1 = count > 0 ? head1 : head2;
             cur2 = cur1 == head1 ? head2 : head1;
-            n = Math.abs(n);
-            while (n != 0) {
-                n--;
+
+            count = Math.abs(count);
+            while(count > 0){
                 cur1 = cur1.next;
+                count--;
             }
-            while (cur1 != cur2) {
+
+            while(cur1 != cur2){
                 cur1 = cur1.next;
                 cur2 = cur2.next;
             }
             return cur1;
-        } else {//可能是第一种情况或者是第三种情况。
+        }else{
             cur1 = loop1.next;
-            while (cur1 != loop1) {//让loop1一直以next的方式一直往下走，如果直到回到自己还没有遇到loop2，就是第一种情况，
-                if (cur1 == loop2) {              //如果遇到loop2了就是第三种情况。
-                    return loop1;       //第三种情况返回loop1还是loop2都可以，loop1距离head1近。loop2距离head2近
+            while(cur1 != loop1){ //loop1肯定是能回到它自己的
+                if(cur1 == loop2){
+                    return loop1;
                 }
                 cur1 = cur1.next;
             }
