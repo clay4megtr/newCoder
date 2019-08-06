@@ -14,11 +14,12 @@ public class MaxMianJi {
 
             if (stack.isEmpty() || arr[i] > arr[stack.peek()]){
                 stack.push(i);
-            }else{ //小于栈顶元素
+            }else{      //小于栈顶元素
                 while(!stack.isEmpty()){
                     if(arr[i] < arr[stack.peek()]){
                         int cur = stack.pop();
-                        max = Math.max((i - cur) * arr[cur],max);
+                        int left = stack.isEmpty() ? -1 : stack.peek();
+                        max = Math.max((i - left - 1) * arr[cur],max);
                     }else{
                         break;
                     }
@@ -27,11 +28,19 @@ public class MaxMianJi {
             }
         }
 
-        int index = 0;
+        int index = arr.length;
         while(!stack.isEmpty()){
-            max = Math.max(arr[stack.pop()] * ++index,max);
+            int cur = stack.pop();
+            int left = stack.isEmpty() ? -1 : stack.peek();
+            max = Math.max((index - left - 1) * arr[cur],max);
         }
 
         return max;
+    }
+
+    public static void main(String[] args) {
+
+        int[] arr = new int[]{3,2,3,0};
+        System.out.println(get(arr));
     }
 }
