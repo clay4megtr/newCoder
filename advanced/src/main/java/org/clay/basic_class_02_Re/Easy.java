@@ -1,5 +1,8 @@
 package org.clay.basic_class_02_Re;
 
+/**
+ * 机器人走路问题
+ */
 public class Easy {
 
     /**
