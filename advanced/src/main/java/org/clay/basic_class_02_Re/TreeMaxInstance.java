@@ -14,10 +14,8 @@ public class TreeMaxInstance {
 
     /**
      * 返回结构
-     * 1.最大二叉搜索子树的大小
-     * 2.最大二叉搜索子树的头部
-     * 3.最大值
-     * 4.最小值
+     * 1.子树上的最远距离
+     * 2.最大高度
      */
     public static class ReturnType{
         private int max_instance;

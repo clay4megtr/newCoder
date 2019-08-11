@@ -2,6 +2,9 @@ package org.clay.basic_class_02_Re;
 
 import java.util.Stack;
 
+/**
+ * BST -> 链表
+ */
 public class Tree2List {
 
     public static class Node {

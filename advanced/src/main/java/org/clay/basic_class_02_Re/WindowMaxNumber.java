@@ -3,6 +3,9 @@ package org.clay.basic_class_02_Re;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+/**
+ * 滑动窗口的最大值问题
+ */
 public class WindowMaxNumber {
 
 

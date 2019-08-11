@@ -2,6 +2,10 @@ package org.clay.basic_class_02_Re;
 
 import java.util.Stack;
 
+/**
+ * 直方图中矩形的最大面积
+ * 单调栈
+ */
 public class MaxMianJi {
 
     public static int get(int[] arr){
