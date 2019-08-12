@@ -75,4 +75,14 @@ public class ReConstractTree{
 
         return head;
     }
+
+
+    /**
+     * 中序和后序结合重构二叉树；
+     * 和上面的方法类似，先序和中序的过程是用先序数组最左的值对中序数组进行划分，因为这是头结点的值，后序数组中头节点的值是后序数组最右的值，所以用后序最右的值来划分中序数组即可；
+     */
+    public static Node midPos2Tree(int[] mid, int[] pos){
+
+        return null;
+    }
 }
