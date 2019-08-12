@@ -11,6 +11,8 @@ package org.clay.Book_Re_Tree;
  * 总结：
  * > 第一个错误节点为第一次降序时较大的节点；
  * > 第二个错误节点为最后一次降序时较小的节点；
+ *
+ * 非递归的中序遍历中找即可；
  */
 public class SearchErrorNode {
 }

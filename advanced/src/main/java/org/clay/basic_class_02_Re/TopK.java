@@ -1,5 +1,8 @@
 package org.clay.basic_class_02_Re;
 
+/**
+ * 一个数组中找到第k小的数
+ */
 public class TopK {
 
     public static int[] partition(int[] arr,int left,int right,int target){
