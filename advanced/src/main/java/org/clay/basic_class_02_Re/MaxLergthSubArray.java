@@ -2,6 +2,9 @@ package org.clay.basic_class_02_Re;
 
 import java.util.HashMap;
 
+/**
+ * 数组中累加和为aim的最长子数组的长度
+ */
 public class MaxLergthSubArray {
 
     public static int process(int[] arr,int aim){

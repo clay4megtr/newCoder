@@ -2,6 +2,9 @@ package org.clay.basic_class_02_Re;
 
 import java.util.LinkedList;
 
+/**
+ * 符合最大值减去最小值<=num的子数组的个数
+ */
 public class subArray {
 
 

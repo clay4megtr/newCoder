@@ -40,7 +40,7 @@ public class LeastCommonNode {
 
     /**
      * 普通二叉树
-     * 这里的技巧是如果left和right是父子关系，虽然子节点不会被触发，但是最终的结果还是会返回父节点的，以为只有父节点一直往上返回的值才不为null
+     * 这里的技巧是如果left和right是父子关系，虽然子节点不会被触发，但是最终的结果还是会返回父节点的，因为只有父节点一直往上返回的值才不为null
      */
     public static Node process1(Node head,Node left,Node right){
 

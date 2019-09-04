@@ -1,8 +1,14 @@
 package org.clay.basic_class_02_Re;
 
+import org.omg.PortableInterceptor.INACTIVE;
+
 import java.util.LinkedList;
 import java.util.Stack;
 
+/**
+ * 这道题目的关键点在于遇到运算符号的时候才去把pre之前的数字放进栈，这样才能保证放进去的是31，而不是3、1，
+ * 而且pre初始值为0也很好的解决了负数的问题，0 - num
+ */
 public class StringCompute {
 
 
@@ -13,41 +19,94 @@ public class StringCompute {
      */
     public static int[] value(char[] str,int i){
 
-        LinkedList<String> queue = new LinkedList<>();
-        int pre = 0;  //收集数字用的，因为多位的数字可能是31+2+7，31本身是一个数字，但是是两个字符，计算的时候需要还原成31
-        int[] bra = null;
+        Stack<String> stack = new Stack<>();
+        int pre = 0;
 
         while(i < str.length && str[i] != ')'){
             if(str[i] >= '0' && str[i] <= '9'){
-                pre = pre * 10 + str[i--] - '0';
-            }else if(str[i] != '('){   //说明遇到了 +-*/
-                addNum(queue,pre);
-                //queue.addLast(String.valueOf(str[i++]));
-                pre = 0;    //等待处理下一个数字
-            }else{  //遇到了左括号
-                bra = value(str,i=1);
-                pre = bra[0];
-                i = bra[1] + 1;   //从 bra[1] + 1 位置开始继续计算
-            }
-        }
-        addNum(queue, pre);
-
-        return null;
-    }
-
-    public static void addNum(LinkedList<String> queue,int num){
-
-        if(!queue.isEmpty()){
-            int cur = 0;
-            String top = queue.pollLast();
-            if(top.equals("+") || top.equals("-")){
-                queue.addLast(top);
+                pre = pre * 10 + str[i++] - '0';
+            }else if(str[i] != '('){  //+ - * /
+                addNum(stack,pre);
+                stack.push(String.valueOf(str[i++]));
+                pre = 0;
             }else{
-                cur = Integer.valueOf(queue.pollLast());
-                num = top.equals("*") ? (cur * num) : (cur / num);
+                int[] res = value(str,i+1);
+                pre = res[0];
+                i = res[1];
             }
         }
-        queue.addLast(String.valueOf(num));
+        addNum(stack,pre);
+        return new int[]{getNum(stack),i+1};
     }
 
+    public static void addNum(Stack<String> stack,int num){
+
+        if (!stack.isEmpty()){
+
+            String rule = String.valueOf(stack.pop());
+            if(rule.equals("+") || rule.equals("-")){
+                stack.push(rule);
+                stack.push(String.valueOf(num));
+            }else if(rule.equals("*")){
+                Integer ff = Integer.valueOf(stack.pop()) * num;
+                stack.push(String.valueOf(ff));
+            }else{
+                stack.push(String.valueOf(Integer.valueOf(stack.pop()) / num));
+            }
+        }else{
+            stack.push(String.valueOf(num));
+        }
+    }
+
+    public static int getNum(Stack<String> stack){
+
+        if(stack.isEmpty()){
+            return 0;
+        }
+
+        int res = Integer.valueOf(removeLast(stack));
+
+        while(!stack.isEmpty()){
+            String rule = removeLast(stack);
+            if(rule.equals("+")){
+                res += Integer.valueOf(removeLast(stack));
+            }else{
+                res -= Integer.valueOf(removeLast(stack));
+            }
+        }
+
+        return res;
+    }
+
+    public static String removeLast(Stack<String> stack){
+
+        if(stack.size() > 1){
+            String cu = stack.pop();
+
+            String res = removeLast(stack);
+
+            stack.push(cu);
+
+            return res;
+        }else{
+            return stack.pop();
+        }
+    }
+
+    public static void main(String[] args) {
+        String exp = "48*((70-65)-43)+8*1";
+        System.out.println(value(exp.toCharArray(),0)[0]);
+
+        exp = "4*(6+78)+53-9/3+45*8";
+        System.out.println(value(exp.toCharArray(),0)[0]);
+
+        exp = "10-5*3";
+        System.out.println(value(exp.toCharArray(),0)[0]);
+
+        exp = "-3*4";
+        System.out.println(value(exp.toCharArray(),0)[0]);
+
+        exp = "3+1*4";
+        System.out.println(value(exp.toCharArray(),0)[0]);
+    }
 }
