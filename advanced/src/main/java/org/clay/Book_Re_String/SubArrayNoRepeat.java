@@ -33,6 +33,17 @@ public class SubArrayNoRepeat {
     /**
      * 时间复杂度O(N)
      * 空间复杂度O(M),M为字符编码范围
+     * 整体思路：找以每一个字符结尾形成的子串的最长无重复子串；
+     *
+     * 也是一个dp问题，看当前位置最后一次出现的位置 和 前一个字符结尾的最长无重复子串的第一个位置的前一个字符的关系；
+     * 核心点在于看当前位置的字符最多能往前扩多远；
+     * 能往前扩多远取决于两件事：
+     * 1.不能超过当前这个位置字符之前最后出现过的位置
+     * 2.不能超过它前一个位置的字符形成的最长无重复子串
+     * 这两个，哪个更靠后取哪个；
+     *
+     * 为什么pre要取前一个字符呢？
+     * 假设a位置>pre位置，那么pre会直接更新为a位置，而a位置就正好是当前i位置形成的最长无重复子串的第一个字符的前一个字符，那么每次只用更新pre位置即可；代码会简化很多；
      */
     public static int getMaxLengthDp(String str){
 
@@ -60,37 +71,9 @@ public class SubArrayNoRepeat {
         return len;
     }
 
-    /**
-     * 滑动窗口,比较好理解
-     */
-    public static int getMaxLengthWindow(String str){
-
-        char[] chars = str.toCharArray();
-        int[] map = new int[256];   //key为某个字符，value为这个字符最近一次出现的位置；
-        for(int i = 0; i < 256; i++){
-            map[i] = -1;
-        }
-
-        int len = 0;
-        int front = 0;
-        for(int back = 0; back < chars.length; back++){
-            if(map[chars[back]] == -1){  //之前没出现过
-                back++;
-            }else{  //之前出现过
-                front = map[chars[back]] + 1;
-            }
-
-            len = Math.max(back - front + 1,len);
-            map[chars[back]] = back;
-        }
-
-        return len;
-    }
-
-
     public static void main(String[] args) {
 
-        String str = "pwwkew";
-        System.out.println(getMaxLengthWindow(str));
+        String str = "abba";
+        System.out.println(getMaxLengthDp(str));
     }
 }
