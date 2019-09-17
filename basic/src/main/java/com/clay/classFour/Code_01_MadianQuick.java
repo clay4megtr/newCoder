@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * 数据流的中位数
+ */
 public class Code_01_MadianQuick {
 
 	public static class MedianHolder {
