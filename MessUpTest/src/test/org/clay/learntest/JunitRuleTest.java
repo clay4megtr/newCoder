@@ -1,5 +1,6 @@
 package org.clay.learntest;
 
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
@@ -30,6 +31,11 @@ public class JunitRuleTest {
      */
     @Rule
     public MethodNameRule methodNameRule = new MethodNameRule();
+
+    /**
+     *  @Rule 和 @ClassRule 的区别就是  @Before 和 @ClassBefore 的区别
+     */
+    //@ClassRule
 
     @Test
     public void testMethod1() throws Exception {
