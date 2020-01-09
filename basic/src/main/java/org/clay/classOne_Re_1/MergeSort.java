@@ -16,7 +16,7 @@ public class MergeSort {
             return;
         }
 
-        int mid = (left+right) / 2;
+        int mid = (left + right) / 2;
 
         mergeSort(arr,left,mid);
         mergeSort(arr,mid+1,right);
@@ -28,29 +28,29 @@ public class MergeSort {
 
         int[] help = new int[right-left+1];
 
-        int left_index = left;
-        int right_index = mid + 1;
-        int help_index = 0;
+        int i = 0;
+        int p1 = left;
+        int p2 = mid+1;
 
-        while(left_index <= mid && right_index <= right){
-            if(arr[left_index] < arr[right_index]){
-                help[help_index++] = arr[left_index++];
+        while(p1 <= mid && p2 <= right){
+            if(arr[p1] <= arr[p2]){
+                help[i++] = arr[p1++];
             }else{
-                help[help_index++] = arr[right_index++];
+                help[i++] = arr[p2++];
             }
         }
 
-        while(left_index <= mid){
-            help[help_index++] = arr[left_index++];
+        while(p1 <= mid){
+            help[i++] = arr[p1++];
         }
 
-        while(right_index <= right){
-            help[help_index++] = arr[right_index++];
+        while(p2 <= right){
+            help[i++] = arr[p2++];
         }
 
-        help_index = 0;
-        while(left <= right){
-            arr[left++] = help[help_index++];
+        int correct_index = 0;
+        while(correct_index < i){
+            arr[left++] = help[correct_index++];
         }
     }
 

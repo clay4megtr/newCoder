@@ -14,18 +14,16 @@ public class NetherLandFlag {
         int cur = left;
 
         while(cur < more){
-
             if(arr[cur] < target){
-                swap(arr,cur,++less);
+                swap(arr,cur++,++less);
+            }else if(arr[cur] == target){
                 cur++;
-            }else if(arr[cur] > target){
-                swap(arr,cur,--more);
             }else{
-                cur++;
+                swap(arr,cur,--more);
             }
         }
 
-        return new int[]{less,more};
+        return new int[]{less+1,more-1};
     }
 
     public static void swap(int[] arr, int t1,int t2){
