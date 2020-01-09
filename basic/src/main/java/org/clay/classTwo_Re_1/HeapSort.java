@@ -34,7 +34,16 @@ public class HeapSort {
         int left = (2 * index) + 1;
 
         while(left < heapSize){
-            int largest =
+            int largest = left + 1 < heapSize && arr[left+1] > arr[left] ? left+1 : left;
+
+            largest = arr[largest] > arr[index] ? largest : index;
+
+            if(largest == index){
+                return;
+            }
+            swap(arr,index,largest);
+            index = largest;
+            left = (2 * index) + 1;
         }
     }
 
