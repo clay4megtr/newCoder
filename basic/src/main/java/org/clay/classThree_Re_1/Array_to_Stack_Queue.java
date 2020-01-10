@@ -37,27 +37,26 @@ public class Array_to_Stack_Queue {
         int end = 0;
         int size = 0;
 
-        public ArrayQueue(int size){
+        public void ArrayQueue(int size){
             arr = new int[size];
         }
 
-        public void push(int element){
+        public void push(int num){
             if(size == arr.length){
-                throw new RuntimeException("队列已满");
+                throw new RuntimeException("queue is full");
             }
-
             size++;
-            arr[end] = element;
-            end = end == arr.length-1 ? 0: end++;
+            arr[end] = num;
+            end = end == arr.length - 1 ? 0 : end++;
         }
 
-        public Integer poll(){
+        public int poll(){
             if(size == 0){
-                return null;
+                throw new RuntimeException("queue is empty");
             }
             size--;
             int res = arr[start];
-            start = start == arr.length-1 ? 0 : start++;
+            start = start == arr.length - 1 ? 0 : start++;
             return res;
         }
     }

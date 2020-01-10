@@ -11,16 +11,18 @@ public class getMinStack {
 
 
         private void push(int element){
-            dataStack.push(element);
-            if(getMinStack.isEmpty()){
+            if(getMinStack.empty()){
                 getMinStack.push(element);
             }else{
-                if(element > getMinStack.peek()){
-                    getMinStack.push(getMinStack.peek());
-                }else{
+                int tmp = getMinStack.peek();
+                if(tmp > element){
                     getMinStack.push(element);
+                }else{
+                    getMinStack.push(tmp);
                 }
             }
+
+            dataStack.push(element);
         }
 
         private Integer pop(){

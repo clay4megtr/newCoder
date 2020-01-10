@@ -23,16 +23,19 @@ public class StackAndQueueConvert {
         }
 
         public Integer pop(){
-            if(data2.isEmpty() && data1.isEmpty()){
-                throw new RuntimeException("没有元素");
-            }
-
-            if(data2.isEmpty()){
-                while(!data1.isEmpty()){
-                    data2.push(data1.pop());
+            if(data1.empty() && data2.empty()){
+                throw new RuntimeException("empty");
+            }else{
+                if(data2.empty()){
+                    while (!data1.empty()){
+                        data2.push(data1.pop());
+                    }
+                    return data2.pop();
+                }else{
+                    return data2.pop();
                 }
             }
-            return data2.pop();
+
         }
     }
 
@@ -50,17 +53,18 @@ public class StackAndQueueConvert {
         }
 
         public Integer poll(){
-            if(data.size() == 0){
-                throw new RuntimeException("没有元素");
+            if(data.isEmpty()){
+                throw new RuntimeException("empty");
             }
-
             while(data.size() != 1){
-                help.add(data.poll());
+                int tmp = data.poll();
+                help.add(tmp);
             }
             int res = data.poll();
-            Queue<Integer> temp = data;
+
+            Queue<Integer> t = data;
             data = help;
-            help = temp;
+            help = t;
 
             return res;
         }

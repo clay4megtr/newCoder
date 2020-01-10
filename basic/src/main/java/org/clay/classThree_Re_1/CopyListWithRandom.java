@@ -1,6 +1,7 @@
 package org.clay.classThree_Re_1;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class CopyListWithRandom {
 
@@ -20,19 +21,20 @@ public class CopyListWithRandom {
      */
     public static Node copyListWithRand1(Node head) {
 
-        HashMap<Node,Node> map = new HashMap<>();
+        Map<Node,Node> map = new HashMap<>();
 
         Node cur = head;
-        while(cur != null){
+        while (cur != null){
             map.put(cur,new Node(cur.value));
             cur = cur.next;
         }
 
-        cur = head;
-        while(cur != null){
-            map.get(cur).next = map.get(cur.next);
-            map.get(cur).rand = map.get(cur.rand);
-            cur = cur.next;
+        Node cur1 = head;
+        while(cur1 != null){
+            Node t = map.get(cur1);
+            t.next = map.get(cur1.next);
+            t.rand = map.get(cur1.rand);
+            cur1 = cur1.next;
         }
 
         return map.get(head);

@@ -4,21 +4,22 @@ public class FindNumInSortedMatrix {
 
     public static boolean isContains(int[][] arr, int num) {
 
-        int r = 0;
-        int c = arr[0].length - 1;
-
         boolean res = false;
-        while (r < arr.length && c >= 0) {
 
-            if (num > arr[r][c]) {
-                r++;
-            } else if (num < arr[r][c]) {
-                c--;
-            } else {
+        int i = 0;
+        int j = arr[0].length-1;
+
+        while(i <= arr.length-1 && j >= 0){
+            if(arr[i][j] > num){
+                j--;
+            }else if(arr[i][j] < num){
+                i++;
+            }else{
                 res = true;
                 break;
             }
         }
+
         return res;
     }
 

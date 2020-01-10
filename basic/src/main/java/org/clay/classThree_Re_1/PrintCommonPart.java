@@ -15,10 +15,11 @@ public class PrintCommonPart {
     public static void printNum(Node root1, Node root2){
 
         while(root1 != null && root2 != null){
-            if(root1.value < root2.value){
-                root1 = root1.next;
-            }else if(root2.value < root1.value){
+
+            if(root1.value > root2.value){
                 root2 = root2.next;
+            }else if(root1.value < root2.value){
+                root1 = root1.next;
             }else{
                 System.out.println(root1.value);
                 root1 = root1.next;
