@@ -16,45 +16,62 @@ public class IsBSTAndCBT {
         }
     }
 
+    public static boolean isBST(Node head) {
+        Stack<Node> stack = new Stack<>();
+        Node cur = head;
+
+        int last = Integer.MIN_VALUE;
+        while(cur != null || !stack.isEmpty()){
+            if(cur != null){
+                stack.push(cur);
+                cur = cur.left;
+            }else{
+                cur = stack.pop();
+                if(cur.value < last){
+                    return false;
+                }
+                last = cur.value;
+                cur = cur.right;
+            }
+        }
+
+        return true;
+    }
+
     /**
-     * 是否是完全二叉树
+     * 是否是完全二叉树 (按层遍历)
+     * 1.如果一个节点只有右子树，没有左子树，肯定不是完全二叉树
+     * 2.如果一个节点不是左右孩子双全(有左没右，或者左右都没有)，那么之后的节点肯定都是叶子节点
      */
     public static boolean isCBT(Node head) {
-        if(head == null){
-            return true;
-        }
-        boolean leaf = false;
+
+        boolean isStageTwo = false;
 
         Queue<Node> queue = new LinkedList<>();
-        queue.offer(head);
+        queue.add(head);
 
         while(!queue.isEmpty()){
             Node cur = queue.poll();
 
-            if(leaf){
-                if(cur.left != null || cur.right != null){  //第二阶段开启之后，后面的节点只能是叶子节点，
-                    return false;
-                }
-            }
-
-            if(cur.right != null && cur.left == null){   //有右没左，直接返回false
+            if(isStageTwo && (cur.left != null || cur.right != null)){
                 return false;
             }
 
-            /*if((cur.left != null && cur.right == null) || (cur.left == null && cur.right == null)){  //有左没右，或者左右都没有
-                leaf = true;
-            }*/
+            if(cur.left == null && cur.right != null){
+                return false;
+            }
+
+            if((cur.left != null && cur.right == null) || (cur.left == null && cur.right == null)){
+                isStageTwo = true;
+            }
 
             if(cur.left != null){
-                queue.offer(cur.left);
+                queue.add(cur.left);
             }
-            if(cur.right != null){    //
-                queue.offer(cur.right);
-            }else{
-                leaf = true;
+            if(cur.right != null){
+                queue.add(cur.right);
             }
         }
-
 
         return true;
     }

@@ -12,38 +12,42 @@ public class IsBalancedTree {
         }
     }
 
-    public static class ReturnData{
-        private boolean isB;
-        private int h;
+    public static class DataStruct{
 
-        public ReturnData(boolean isB,int h){
-            this.h = h;
-            this.isB = isB;
+        public boolean isBal;
+        public Integer height;
+
+        public DataStruct(boolean isBal,Integer height){
+            this.height = height;
+            this.isBal = isBal;
         }
     }
 
-    //===========第一种方法============================
-    public static boolean isB(Node head) {
-        return process(head).isB;
-    }
+    public static DataStruct process(Node head){
 
-    private static ReturnData process(Node head) {
         if(head == null){
-            return new ReturnData(true,0);
+            return new DataStruct(true,0);
         }
 
-        ReturnData left = process(head.left);
-        ReturnData right = process(head.right);
-
-        if(!left.isB || !right.isB){
-            return new ReturnData(false,left.h);
+        DataStruct leftRes = process(head.left);
+        if(!leftRes.isBal){
+            return new DataStruct(false,leftRes.height+1);
         }
 
-        if(Math.abs(left.h - right.h) > 1){
-            return new ReturnData(false,left.h);
+        DataStruct rightRes = process(head.right);
+        if(!rightRes.isBal){
+            return new DataStruct(false,rightRes.height+1);
         }
 
-        return new ReturnData(true,Math.max(left.h,right.h) + 1);
+        if(Math.abs(leftRes.height - rightRes.height) > 1){
+            return new DataStruct(false,Math.max(leftRes.height,rightRes.height)+1);
+        }
+
+        return new DataStruct(true,Math.max(leftRes.height,rightRes.height)+1);
+    }
+
+    public static boolean isB(Node head) {
+        return process(head).isBal;
     }
 
 

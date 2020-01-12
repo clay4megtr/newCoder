@@ -16,21 +16,25 @@ public class IsPalindromeList {
     }
 
     public static boolean isPali1(Node root){
-        boolean res = false;
+        boolean res = true;
 
-        Stack<Integer> stack = new Stack<>();
-        Node head = root;
-        while(head != null){
-            stack.push(head.value);
-            head = head.next;
+        Stack<Node> stack = new Stack<>();
+
+        Node cur = root;
+
+        while(cur != null){
+            stack.push(cur);
+            cur = cur.next;
         }
 
-        while(root != null){
-            if(root.value != stack.pop()){
+        cur = root;
+        while(cur != null){
+            if(cur.value != stack.pop().value){
                 res = false;
             }
-            root = root.next;
+            cur = cur.next;
         }
+
         return res;
     }
 
@@ -45,23 +49,24 @@ public class IsPalindromeList {
             return true;
         }
 
-        Node fast = head;           //快指针从头结点出发
-        Node slow = head;      //慢指针从第二个节点出发
+        Node fast = head;
+        Node slow = head;
 
-        while(fast.next != null && fast.next.next != null){  //这里有一个规律，记住就就可以了，快指针停止的时候，慢指针一定在中间
+        while(fast.next != null && fast.next.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        Stack<Integer> stack = new Stack<>();
+        Stack<Node> stack = new Stack<>();
 
         while(slow != null){
-            stack.push(slow.value);
+            stack.push(slow);
             slow = slow.next;
         }
 
-        while(!stack.isEmpty()){
-            if(stack.pop() != head.value){
+
+        while (!stack.isEmpty()){
+            if(stack.pop().value != head.value){
                 return false;
             }
             head = head.next;
@@ -97,35 +102,33 @@ public class IsPalindromeList {
             fast = fast.next.next;
         }
 
-        fast = slow.next;
-        slow.next = null;
-        //此时slow 就是 pre，fast就是head
-        while(fast != null){
-            Node next = fast.next;
-            fast.next = slow;
-            slow = fast;
-            fast = next;
+        Node pre = null;
+        Node next = null;
+        while(slow != null){
+            next = slow.next;
+            slow.next = pre;
+            pre = slow;
+            slow = next;
         }
 
-        //此时slow指向尾节点
-        Node reverHead = slow;
         Node head1 = head;
+        Node head2 = pre;
 
-        while(head1 != null && slow != null){
-            if(head1.value != slow.value){
+        while(head1 != null){
+            if(head1.value != head2.value){
                 res = false;
+                break;
             }
             head1 = head1.next;
-            slow = slow.next;
+            head2 = head2.next;
         }
 
-        //恢复节点
-        Node pre = null;
-        while(reverHead != null){
-            Node next = reverHead.next;
-            reverHead.next = pre;
-            pre = reverHead;
-            reverHead = next;
+        //pre -> head   slow -> pre
+        while (pre != null){
+            next = pre.next;
+            pre.next = slow;
+            slow = pre;
+            pre = next;
         }
 
         return res;
@@ -158,7 +161,7 @@ public class IsPalindromeList {
         head.next.next.next = new Node(2);
         head.next.next.next.next = new Node(1);
         printLinkedList(head);
-        System.out.print(isPalindrome2(head) + " | ");
+        System.out.print(isPalindrome3(head) + " | ");
         printLinkedList(head);
         System.out.println("=========================");
 
