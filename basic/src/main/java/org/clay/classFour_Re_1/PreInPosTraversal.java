@@ -1,5 +1,7 @@
 package org.clay.classFour_Re_1;
 
+import sun.awt.image.OffScreenImage;
+
 import java.util.Stack;
 
 public class PreInPosTraversal {
@@ -84,18 +86,17 @@ public class PreInPosTraversal {
      */
     public static void inOrderUnRecur(Node head) {
 
-        if(head != null){
-            Stack<Node> stack = new Stack<>();
+        Stack<Node> stack = new Stack<>();
+        Node cur = head;
 
-            while(!stack.isEmpty() || head != null){
-                if(head != null){
-                    stack.push(head);
-                    head = head.left;
-                }else{
-                    head = stack.pop();
-                    System.out.println(head.value);
-                    head = head.right;
-                }
+        while(cur != null || !stack.isEmpty()){
+            if(cur != null){
+                stack.push(cur);
+                cur = cur.left;
+            }else{
+                cur = stack.pop();
+                System.out.println(cur.value);
+                cur = cur.right;
             }
         }
     }
@@ -110,22 +111,24 @@ public class PreInPosTraversal {
 
         System.out.println("posOrderUnRecur1");
 
-        Stack<Node> stack = new Stack<>();
-        Stack<Node> newStack = new Stack<>();
-        stack.push(head);
+        Stack<Node> first = new Stack<>();
+        Stack<Node> second = new Stack<>();
+        first.push(head);
 
-        while(!stack.isEmpty()){
-            Node cur = stack.pop();
-            newStack.push(cur);
+        while(!first.isEmpty()){
+            Node cur = first.pop();
+            second.push(cur);
+
             if(cur.left != null){
-                stack.push(cur.left);
+                first.push(cur.left);
             }
             if(cur.right != null){
-                stack.push(cur.right);
+                first.push(cur.right);
             }
         }
-        while(!newStack.isEmpty()){
-            System.out.println(newStack.pop().value);
+
+        while(!second.isEmpty()){
+            System.out.println(second.pop().value);
         }
     }
 

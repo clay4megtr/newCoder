@@ -18,42 +18,33 @@ public class CompleteTreeNodeNumber {
         }
     }
 
-    /**
-     *  主函数
-     *  一定是完全二叉树
-     */
-    public static int nodeNum(Node head) {
-        if (head == null) {
-            return 0;
-        }
-        return getNum(head,1,mostLeftLevel(head, 1));
+    public static int nodeNum(Node head){
+
+        return getRes(head,1,mostLeftLevel(head,1));
     }
 
-    public static int getNum(Node head,int level,int h){
+    public static int getRes(Node head, int level, int h){
+
         if(level == h){
             return 1;
         }
-        if(mostLeftLevel(head,level) == mostLeftLevel(head.right,level +1)){
-            return Double.valueOf(Math.pow(2,h-level)).intValue() + getNum(head.right,level+1,h);
+
+        if(mostLeftLevel(head.right,level+1) == h){
+            return (int) (Math.pow(2,h-level) + getRes(head.right,level+1,h));
         }else{
-            return Double.valueOf(Math.pow(2,h-level-1)).intValue() + getNum(head.left,level+1,h);
+            return (int) (Math.pow(2,h-level-1) + getRes(head.left,level+1,h));
         }
     }
 
+    public static int mostLeftLevel(Node head,int level){
 
-
-    /**
-     * @param node
-     * @param level 之前所在的层
-     * @return 整棵树最左的边界到了哪一层。
-     */
-    public static int mostLeftLevel(Node node, int level) {
-        while(node != null){
-            level += 1;
-            node = node.left;
+        while(head != null){
+            level++;
+            head = head.left;
         }
-        return level -1;
+        return level-1;
     }
+
 
     public static void main(String[] args) {
         Node head = new Node(1);

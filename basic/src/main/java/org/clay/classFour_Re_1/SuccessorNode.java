@@ -1,5 +1,6 @@
 package org.clay.classFour_Re_1;
 
+
 public class SuccessorNode {
 
     public static class Node {
@@ -14,20 +15,21 @@ public class SuccessorNode {
     }
 
     public static Node getSuccessorNode(Node node) {
-        if(node == null){
-            return node;
-        }
+
         if(node.right != null){
-            return getLeftMost(node.right);
-        }else{
-            //如果没有右子树，就看这个节点是作为哪个节点的左子树
-            Node parent = node.parent;
-            while(parent != null && node != parent.left){
-                node = parent;
-                parent = node.parent;
-            }
-            return parent;
+            return getLeftMost(node);
         }
+        Node cur = node;
+        Node parent = node.parent;
+
+        while(parent != null){
+            if(cur == parent.left){
+                return parent;
+            }
+            cur = parent;
+            parent = parent.parent;
+        }
+        return parent;
     }
 
     /**

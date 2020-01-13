@@ -44,12 +44,8 @@ public class FindFirstIntersectNode {
      */
     public static Node getLoopNode(Node head) {
 
-        if(head == null || head.next == null || head.next.next == null){
-            return null;
-        }
-
-        Node fast = head.next.next;
-        Node slow = head.next;
+        Node fast = head;
+        Node slow = head;
 
         while(fast != slow){
             if(fast.next == null || fast.next.next == null){
@@ -58,8 +54,9 @@ public class FindFirstIntersectNode {
             slow = slow.next;
             fast = fast.next.next;
         }
+        //此时说明肯定有环，
         fast = head;
-        while(fast != slow){
+        while(fast.next != slow.next){
             fast = fast.next;
             slow = slow.next;
         }
@@ -75,39 +72,37 @@ public class FindFirstIntersectNode {
      */
     public static Node noLoop(Node head1, Node head2) {
 
-        if(head1 == null || head2 == null){
-            return null;
-        }
-
+        int diff = 0;
         Node cur1 = head1;
         Node cur2 = head2;
-        int count = 0;
 
-        while(cur1.next != null){
-            count++;
+        while(cur1 != null){
+            diff++;
             cur1 = cur1.next;
         }
 
-        while(cur2.next != null){
-            count--;
-            cur2 =cur2.next;
+        while(cur2 != null){
+            diff--;
+            cur2 = cur2.next;
         }
-
         if(cur1 != cur2){
             return null;
         }
 
-        cur1 = count > 0 ? head1 : head2;
-        cur2 = cur1 == head1 ? head2 : head1;
+        cur1 = diff >= 0 ? head1 : head2;
+        cur2 = cur1 == head2 ? head1 : head2;
 
-        while(count > 0){
+        diff = Math.abs(diff);
+        while(diff > 0){
             cur1 = cur1.next;
-            count--;
+            diff--;
         }
-        while(cur1 != cur2){
+
+        while (cur1 != cur2){
             cur1 = cur1.next;
             cur2 = cur2.next;
         }
+
         return cur1;
     }
 
@@ -122,47 +117,55 @@ public class FindFirstIntersectNode {
      */
     public static Node bothLoop(Node head1, Node loop1, Node head2, Node loop2) {
 
-        Node cur1 = null;
-        Node cur2 = null;
-
-        if(loop1 == loop2){
-
-            cur1 = head1;
-            cur2 = head2;
-            int count = 0;
+        if(loop1 == loop2){  //
+            Node cur1 = head1;
+            Node cur2 = head2;
+            int diff = 0;
 
             while(cur1 != loop1){
-                count++;
                 cur1 = cur1.next;
+                diff++;
             }
 
             while(cur2 != loop1){
-                count--;
                 cur2 = cur2.next;
+                diff--;
             }
-            cur1 = count > 0 ? head1 : head2;
+
+            cur1 = diff >= 0 ? head1 : head2;
             cur2 = cur1 == head1 ? head2 : head1;
 
-            count = Math.abs(count);
-            while(count > 0){
+            diff = Math.abs(diff);
+
+            while(diff > 0){
                 cur1 = cur1.next;
-                count--;
+                diff--;
             }
 
             while(cur1 != cur2){
                 cur1 = cur1.next;
                 cur2 = cur2.next;
             }
+
             return cur1;
         }else{
-            cur1 = loop1.next;
-            while(cur1 != loop1){ //loop1肯定是能回到它自己的
-                if(cur1 == loop2){
-                    return loop1;
+            boolean noMeet = true;
+
+            Node next = loop1.next;
+
+            while(next != loop1){
+                if(next == loop2){
+                    noMeet = false;
+                    break;
                 }
-                cur1 = cur1.next;
+                next = next.next;
             }
-            return null;
+
+            if(noMeet){
+                return null;
+            }else{
+                return loop1;
+            }
         }
     }
 

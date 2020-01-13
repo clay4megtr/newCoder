@@ -21,44 +21,43 @@ public class SmallerEqualBigger {
         Node bH = null;
         Node bT = null;
 
-        Node root = head;
+        Node cur = head;
 
-        while(root != null){
-
-            Node next = root.next;
-            root.next = null;
-
-            if(root.value < num){
+        while(cur != null){
+            if(cur.value < num){
                 if(sH == null){
-                    sH = root;
-                    sT = root;
+                    sH = cur;
+                    sT = cur;
                 }else{
-                    sT.next = root;
+                    sT.next = cur;
+                    sT = cur;
                 }
-            }else if(root.value == num){
+            }else if(cur.value == num){
                 if(eH == null){
-                    eH = root;
-                    eT = root;
+                    eH = cur;
+                    eT = cur;
                 }else{
-                    eT.next = root;
+                    eT.next = cur;
+                    eT = cur;
                 }
             }else{
                 if(bH == null){
-                    bH = root;
-                    bT = root;
+                    bH = cur;
+                    bT = cur;
                 }else{
-                    bT.next = root;
+                    bT.next = cur;
+                    bT = cur;
                 }
             }
-            root = next;
+            cur = cur.next;
         }
 
         if(sT != null){
             sT.next = eH;
             eT = eT == null ? sT : eT;
         }
-        if(eT != null){
-            eT.next = bT;
+        if (eT != null) {
+            eT.next = bH;
         }
 
         return sH != null ? sH : eH != null ? eH : bH;
@@ -85,6 +84,5 @@ public class SmallerEqualBigger {
         // head1 = listPartition1(head1, 4);
         head1 = listPartition2(head1, 5);
         printLinkedList(head1);
-
     }
 }

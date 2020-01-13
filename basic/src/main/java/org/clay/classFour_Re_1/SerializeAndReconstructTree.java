@@ -1,5 +1,6 @@
 package org.clay.classFour_Re_1;
 
+import javax.swing.undo.CannotUndoException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -20,11 +21,12 @@ public class SerializeAndReconstructTree {
      */
     public static String serialByPre(Node head) {
         if(head == null){
-            return "#!";
+           return "#!";
         }
         String res = head.value + "!";
         res += serialByPre(head.left);
         res += serialByPre(head.right);
+
         return res;
     }
 
@@ -41,40 +43,39 @@ public class SerializeAndReconstructTree {
      * 反序列化（先序）
      */
     public static Node reconPreOrder(Queue<String> queue) {
-        String res = queue.poll();
-        if(res.equals("#")){
+        String cur = queue.poll();
+        if(cur.equals("#")){
             return null;
-        }else{
-            Node node = new Node(Integer.valueOf(res));
-            node.left = reconPreOrder(queue);
-            node.right = reconPreOrder(queue);
-            return node;
         }
+        Node head = new Node(Integer.valueOf(cur));
+        head.left = reconPreOrder(queue);
+        head.right = reconPreOrder(queue);
+        return head;
     }
 
     /**
      * 层序  序列化
      */
     public static String serialByLevel(Node head) {
-        if(head == null){
-            return "#!";
-        }
-        String res = head.value + "!";
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(head);
 
-        while (!queue.isEmpty()){
-            head = queue.poll();
-            if(head.left != null){
-                res += head.left.value + "!";
-                queue.offer(head.left);
+        String res = "";
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(head);
+
+        while(!queue.isEmpty()){
+
+            Node cur = queue.poll();
+            res += cur.value + "!";
+
+            if(cur.left != null){
+                queue.add(cur.left);
             }else{
                 res += "#!";
             }
 
-            if(head.right != null){
-                res += head.right.value + "!";
-                queue.offer(head.right);
+            if(cur.right != null){
+                queue.add(cur.right);
             }else{
                 res += "#!";
             }
@@ -87,28 +88,25 @@ public class SerializeAndReconstructTree {
      */
     public static Node reconByLevelString(String levelStr) {
 
-        String[] values = levelStr.split("!");
+        String[] arr = levelStr.split("!");
         int index = 0;
-        Node head = generateNodeByString(values[index++]);
-        Queue<Node> queue = new LinkedList<Node>();
+        Node head = generateNodeByString(arr[index++]);
 
-        if(head != null){
-            queue.offer(head);
-        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(head);
 
-        Node node = null;
         while(!queue.isEmpty()){
-            node = queue.poll();
-            node.left = generateNodeByString(values[index++]);
-            node.right = generateNodeByString(values[index++]);
+            Node cur = queue.poll();
 
-            if(node.left != null){
-                queue.offer(node.left);
-            }
-            if(node.right != null){
-                queue.offer(node.right);
+            cur.left = generateNodeByString(arr[index++]);
+            if(cur.left != null){
+                queue.add(cur.left);
             }
 
+            cur.right = generateNodeByString(arr[index++]);
+            if(cur.right != null){
+                queue.add(cur.right);
+            }
         }
 
         return head;
