@@ -9,27 +9,25 @@ public class TopologySort {
 
     public static void topologySort(Graph graph){
 
-        HashMap<Node,Integer> inMap = new HashMap<>();
+        HashMap<Node,Integer> map = new HashMap<>();  //key是具体Node，value是入度
 
-        Queue<Node> zeroInQueue = new LinkedList<>();
+        Queue<Node> queue = new LinkedList<>();
 
         for(Node node: graph.nodes.values()){
-            inMap.put(node,node.in);
+            map.put(node,node.in);
             if(node.in == 0){
-                zeroInQueue.offer(node);
+                queue.offer(node);
             }
         }
 
-        List<Node> result = new ArrayList<>();
+        while(!queue.isEmpty()){
+            Node cur = queue.poll();
+            System.out.println(cur.value);
 
-        while(!zeroInQueue.isEmpty()){
-            Node cur = zeroInQueue.poll();
-            result.add(cur);
-
-            for(Node next: cur.nexts){
-                inMap.put(next,next.in-1);
-                if(inMap.get(next) == 0){
-                    zeroInQueue.offer(next);
+            for(Node next: cur.nexts){ //后续节点的入度就要减1
+                map.put(next,map.get(next)-1);
+                if(map.get(next) == 0){
+                    queue.offer(next);
                 }
             }
         }

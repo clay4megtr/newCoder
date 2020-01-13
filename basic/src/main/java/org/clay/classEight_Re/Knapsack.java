@@ -2,17 +2,19 @@ package org.clay.classEight_Re;
 
 public class Knapsack {
 
+    public static Integer process(int[] w, int[] v,int level,int cost,int bag){
 
-    public static int process(int[] w,int[] v,int i,int cost,int bag){
         if(cost > bag){
             return Integer.MIN_VALUE;
         }
-        if(i == w.length){
-            return 0;
+
+        if(level == w.length){
+            return 0;  //这里总是理解不了，记住吧先
         }
 
-        return Math.max(process(w,v,i+1,cost,bag),v[i] + process(w,v,i+1,cost+w[i],bag));
+        return Math.max(v[level] + process(w,v,level+1,cost+w[level],bag), process(w,v,level+1,cost,bag));
     }
+
 
     /**
      * 变量    i，  范围：    数组长度

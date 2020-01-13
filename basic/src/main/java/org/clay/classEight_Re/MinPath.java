@@ -14,12 +14,11 @@ public class MinPath {
         if(i == matrix.length-1){
             return matrix[i][j] + walk(matrix,i,j+1);
         }
-
         if(j == matrix[0].length-1){
             return matrix[i][j] + walk(matrix,i+1,j);
         }
 
-        return matrix[i][j] + Math.min(walk(matrix,i,j+1),walk(matrix,i+1,j));
+        return matrix[i][j] + Math.min(walk(matrix,i+1,j),walk(matrix,i,j+1));
     }
 
     public static int walkDp(int[][] matrix){

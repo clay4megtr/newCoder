@@ -6,27 +6,26 @@ public class Less_Money {
 
     public static int lessMoney(int[] arr){
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int i = 0; i < arr.length; i++){
-            pq.add(arr[i]);
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+
+        for(Integer num: arr){
+            queue.add(num);
         }
 
         int sum = 0;
-        int cur = 0;
-
-        while(pq.size() > 1){
-            cur = pq.poll() + pq.poll();
-            sum += cur;
-            pq.add(cur);
+        while(queue.size() > 1){
+            int res = queue.poll() + queue.poll();
+            sum += res;
+            queue.add(res);
         }
+
         return sum;
     }
 
     public static void main(String[] args) {
 
-        // solution
+        //solution
         int[] arr = {10,20,30};
         System.out.println(lessMoney(arr));
-
     }
 }

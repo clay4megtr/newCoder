@@ -4,13 +4,14 @@ package org.clay.classEight_Re;
 
 public class Money_Problem {
 
-    public static boolean process(int[] arr, int target, int level,int sum){
-        if(level == arr.length){
-            return target == sum;
-        }
+    public static boolean process(int[] arr,int level,int sum,int target){
 
-        return process(arr,target,level+1,sum) || process(arr,target,level+1,sum + arr[level]);
+        if(level == 4){
+            return sum == target;
+        }
+        return process(arr,level+1,sum+arr[level],target) || process(arr,level+1,sum,target);
     }
+
 
     public static boolean process1(int[] arr,int target){
 

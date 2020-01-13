@@ -13,16 +13,17 @@ public class DFS {
 
         Stack<Node> stack = new Stack<>();
         HashSet<Node> set = new HashSet<>();
+
         stack.push(head);
+        set.add(head);
         System.out.println(head.value);
 
-        set.add(head);
-
         while(!stack.isEmpty()){
-            Node node = stack.pop();
-            for(Node next: node.nexts){
+            Node cur = stack.pop();
+
+            for(Node next: cur.nexts){
                 if(!set.contains(next)){
-                    stack.push(node);
+                    stack.push(cur);
                     stack.push(next);
                     set.add(next);
                     System.out.println(next.value);

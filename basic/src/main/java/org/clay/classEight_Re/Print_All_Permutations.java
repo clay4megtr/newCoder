@@ -1,5 +1,8 @@
 package org.clay.classEight_Re;
 
+/**
+ * 打印全排列
+ */
 public class Print_All_Permutations {
 
     public static void printAllPermutations1(String str) {
@@ -7,18 +10,20 @@ public class Print_All_Permutations {
         process(chs, 0);
     }
 
-    public static void process(char[] words,int level){
+    public static void process(char[] arr,int level){
 
-        if(level == words.length-1){
-            System.out.println(words);
+        if(level == arr.length-1){
+            System.out.println(arr);
+            return;
         }
 
-        for(int i = level; i < words.length; i++){
-            swap(words,i,level);
-            process(words,level+1);
-            swap(words,i,level);
+        for(int i = level; i < arr.length; i++){
+            swap(arr,level,i);
+            process(arr,level+1);
+            swap(arr,level,i);
         }
     }
+
 
     public static void swap(char[] words,int a,int b){
         char t = words[a];
