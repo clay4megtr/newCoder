@@ -1,7 +1,5 @@
 package org.clay.classEight_Re;
 
-import java.util.Arrays;
-
 public class WaterProblem {
 
 
@@ -33,15 +31,32 @@ public class WaterProblem {
 
         for(int i = 1; i < arr.length-1; i++){
             if(arr[i] < leftHelp[i-1] && arr[i] < rightHelp[i+1]){
-                sum += Math.min(leftHelp[i-1],rightHelp[i+1]) - arr[i];
+                sum += Math.max(0,Math.min(leftHelp[i-1],rightHelp[i+1]) - arr[i]);
             }
         }
 
         return sum;
     }
 
-    public static void main(String[] args) {
+    //双指针
+    public static int getWaterByDouble(int[] arr){
 
+        int maxLeft = arr[0];
+        int maxRight = arr[arr.length-1];
+
+        int L = 1;
+        int R = arr.length-2;
+
+        int sum = 0;
+        while(L < R){
+            int min = Math.min(maxLeft,maxRight);
+            sum += Math.max(0,min-arr[L++]);
+            sum += Math.max(0,min-arr[R--]);
+        }
+
+    }
+
+    public static void main(String[] args) {
         int[] arr = new int[]{3,1,2,4};
         System.out.println(getMushWater(arr));
     }

@@ -9,7 +9,7 @@ public class Knapsack {
         }
 
         if(level == w.length){
-            return 0;  //这里总是理解不了，记住吧先
+            return 0;  //这里总是理解不了，核心是下面取最大价值的时候，直接用v[level]加的，
         }
 
         return Math.max(v[level] + process(w,v,level+1,cost+w[level],bag), process(w,v,level+1,cost,bag));
