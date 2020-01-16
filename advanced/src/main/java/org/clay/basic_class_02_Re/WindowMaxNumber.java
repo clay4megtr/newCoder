@@ -12,42 +12,37 @@ public class WindowMaxNumber {
     public static int[] getMaxNumber(int[] arr, int window_length) {
 
         int[] res = new int[arr.length - window_length + 1];
-        int pos = 0;
+        int index = 0;  //res的索引
 
-        LinkedList<Integer> queue = new LinkedList<>();
+        LinkedList<Integer> queue = new LinkedList<>();  // 注意存的是index
 
-        for (int i = 0; i < arr.length; i++) {
+        for(int i = 0; i < arr.length; i++){
 
-            while (!queue.isEmpty()) {
-                if (arr[i] > arr[queue.peekLast()]) {
+            while (!queue.isEmpty()){
+                if(arr[queue.peekLast()] < arr[i]){
                     queue.pollLast();
-                } else {
+                }else{
                     break;
                 }
             }
             queue.addLast(i);
 
-            if (i == window_length - 1) {
-                res[pos++] = arr[queue.peekFirst()];
-            } else if (i > window_length - 1) {
-                if (queue.peekFirst() == i - window_length) {
+            if(i >= window_length - 1){   //开始产生窗口内最大值
+                res[index++] = arr[queue.peekFirst()];
+                if(queue.peekFirst() == i - window_length + 1){   // 如何判断是否过期了
                     queue.pollFirst();
                 }
-                res[pos++] = arr[queue.peekFirst()];
             }
         }
-
         return res;
     }
 
     public static void printArr(int[] arr) {
-
         Arrays.stream(arr).forEach(System.out::println);
     }
 
     public static void main(String[] args) {
-
-        int[] arr = new int[]{4, 3, 5, 4, 3, 3, 6, 7};
+        int[] arr = new int[]{5,4,1,2,6,5,6};
         printArr(getMaxNumber(arr, 3));
     }
 }

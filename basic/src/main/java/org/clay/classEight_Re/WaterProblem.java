@@ -48,16 +48,22 @@ public class WaterProblem {
         int R = arr.length-2;
 
         int sum = 0;
-        while(L < R){
-            int min = Math.min(maxLeft,maxRight);
-            sum += Math.max(0,min-arr[L++]);
-            sum += Math.max(0,min-arr[R--]);
+        while(L <= R){
+            if(maxRight < maxLeft){
+                sum += Math.max(0,maxRight-arr[R]);
+                maxRight = Math.max(arr[R], maxRight);
+                R--;
+            }else{
+                sum += Math.max(0,maxLeft-arr[L]);
+                maxLeft = Math.max(arr[L],maxLeft);
+                L++;
+            }
         }
-
+        return sum;
     }
 
     public static void main(String[] args) {
         int[] arr = new int[]{3,1,2,4};
-        System.out.println(getMushWater(arr));
+        System.out.println(getWaterByDouble(arr));
     }
 }

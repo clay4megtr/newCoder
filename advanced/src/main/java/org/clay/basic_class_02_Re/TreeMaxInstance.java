@@ -12,14 +12,9 @@ public class TreeMaxInstance {
         }
     }
 
-    /**
-     * 返回结构
-     * 1.子树上的最远距离
-     * 2.最大高度
-     */
     public static class ReturnType{
-        private int max_instance;
-        private int h;
+        public int max_instance;
+        public int h;
 
         public ReturnType(int max_instance,int h){
             this.max_instance = max_instance;
@@ -27,22 +22,20 @@ public class TreeMaxInstance {
         }
     }
 
-    public static ReturnType process(Node head){
+    public ReturnType process(Node head){
 
         if(head == null){
             return new ReturnType(0,0);
         }
 
-        ReturnType left_res = process(head.left);
-        ReturnType right_res = process(head.right);
+        Node left = head.left;
+        ReturnType leftRes = process(left);
 
-        int p1 = left_res.max_instance;
-        int p2 = right_res.max_instance;
+        Node right = head.right;
+        ReturnType rightRes = process(right);
 
-        int max_instance = Math.max(Math.max(p1,p2),left_res.h + right_res.h + 1);
+        int max_instance = Math.max(Math.max(leftRes.max_instance,rightRes.max_instance),leftRes.h + rightRes.h + 1);
 
-        int h = Math.max(left_res.h,right_res.h) + 1;
-
-        return new ReturnType(max_instance,h);
+        return new ReturnType(max_instance,Math.max(leftRes.h,rightRes.h)+1);
     }
 }

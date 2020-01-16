@@ -15,15 +15,8 @@ public class MaxBST {
         }
     }
 
-    /**
-     * 返回结构
-     * 1.最大二叉搜索子树的大小
-     * 2.最大二叉搜索子树的头部
-     * 3.最大值
-     * 4.最小值
-     */
     public static class ReturnType{
-        private int size;
+        private int size; //最大二叉搜索子树大小
         private Node head;
         private int max;
         private int min;
@@ -42,21 +35,27 @@ public class MaxBST {
             return new ReturnType(0,null,Integer.MIN_VALUE,Integer.MAX_VALUE);
         }
 
-        ReturnType left_res = process(head.left);
-        ReturnType right_res = process(head.right);
+        Node left = head.left;
+        ReturnType leftRes = process(head.left);
 
-        if(left_res.max < head.value && right_res.min > head.value && head.left == left_res.head && head.right == right_res.head){
-            return new ReturnType(left_res.size + 1 + right_res.size,head,Math.max(Math.max(left_res.max,right_res.max),head.value),Math.min(Math.min(left_res.min,right_res.min),head.value));
+        Node right = head.right;
+        ReturnType rightRes = process(head.right);
+
+        int includeItSelf = 0;
+        if(left == leftRes.head && right == rightRes.head && head.value > leftRes.max && head.value < rightRes.min){
+            includeItSelf = leftRes.size + rightRes.size + 1;
         }
 
-        Node maxHead = left_res.size > right_res.size ? left_res.head : right_res.head;
+        int p1 = leftRes.size;
+        int p2 = rightRes.size;
 
-        int maxSize = Math.max(left_res.size, right_res.size);
+        int maxSize = Math.max(Math.max(p1,p2),includeItSelf);
 
-        return new ReturnType(maxSize,
-                maxHead,
-                Math.max(Math.max(left_res.max,right_res.max),head.value),
-                Math.min(Math.min(left_res.min,right_res.min),head.value));
+        Node maxHead = p1 > p2 ? leftRes.head : rightRes.head;
+        if(maxSize == includeItSelf){
+            maxHead = head;
+        }
+        return new ReturnType(maxSize,maxHead,Math.max(Math.max(leftRes.max,rightRes.max),head.value),Math.min(Math.min(leftRes.min,rightRes.min),head.value));
     }
 
 

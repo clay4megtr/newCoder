@@ -5,18 +5,15 @@ package org.clay.basic_class_02_Re;
  */
 public class CoinsWay {
 
-    public static int process(int[] arr,int index,int aim){
+    public Integer process(int[] arr,int aim,int index){
 
-        int res = 0;
-        if(arr == null || arr.length == 0){
-            return 0;
-        }
         if(index == arr.length){
             return aim == 0 ? 1 : 0;
         }
 
-        for(int i = 0; arr[index] * i <= aim; i++){
-            res += process(arr,index+1,aim - arr[index] * i);
+        int res = 0;
+        for(int i = 0; i * arr[index] <= aim; i++){
+            res += process(arr,aim-(i * arr[index]),index+1);
         }
 
         return res;
