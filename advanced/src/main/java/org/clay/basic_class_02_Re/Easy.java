@@ -5,26 +5,28 @@ package org.clay.basic_class_02_Re;
  */
 public class Easy {
 
+
     /**
-     * @param N 多少个位置        不变
-     * @param M 来到的位置
-     * @param P 再走p步
-     * @param K 最终停留在k位置    固定不变
-     * @return 一共多少种走法
+     * @param start   当前所在位置
+     * @param end     目标位置
+     * @param size    数组大小
+     * @param p       只能走p步
+     * @return
      */
-    public static int walk(int N, int M, int P, int K){
-        if(P == 0){
-            // basecase
-            return M == K ? 1 : 0;
+    public static int process(int start,int end, int size,int p){
+        if(p == 0){
+            return start == end ? 1: 0;
         }
-        // 开始位置和结束位置只能往一个方向走
-        if(M == 1){
-            return walk(N, M + 1, P - 1, K);
-        }else if(M == N){
-            return walk(N, M - 1, P - 1, K);
+        //p > 0
+        if(start == 1){
+            return process(start + 1,end,size,p-1);
         }
-        // 向左走和向右走两种选择
-        return walk(N, M + 1, P - 1, K) + walk(N, M - 1, P - 1, K);
+
+        if(start == size){
+            return process(start - 1,end,size,p-1);
+        }
+
+        return process(start+1,end,size,p-1) + process(start-1,end,size,p-1);
     }
 
     /**
@@ -53,6 +55,6 @@ public class Easy {
 
     public static void main(String[] args) {
 
-        System.out.println(walk(4,1,4,3));
+        System.out.println(process(2,3,4,3));
     }
 }

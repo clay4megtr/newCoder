@@ -1,68 +1,56 @@
 package org.clay.Book_Re_Other;
 
-/**
- * 树的子结构
- */
-class TreeNode {
-    int val = 0;
-    TreeNode left = null;
-    TreeNode right = null;
-
-    public TreeNode(int val) {
-        this.val = val;
-    }
-}
-
 public class SubTree {
 
-    public boolean isSubtree(TreeNode s, TreeNode t) {
-        if(t==null) return false;
-        if(s==null && t!=null) return false;
-        boolean flag = false;
-        if(s.val==t.val){
-            flag = isSubTreeD(s,t);
+    static class Node {
+        int val = 0;
+        Node left = null;
+        Node right = null;
+
+        public Node(int val) {
+            this.val = val;
         }
-        if(!flag){
-            flag = isSubtree(s.left, t);
-            if(!flag){
-                flag = isSubtree(s.right, t);
-            }
-        }
-        return flag;
     }
 
-    private boolean isSubTreeD(TreeNode root1, TreeNode root2) {
-        if(root2==null) return true;
-        
-        if(root1==null && root2!=null) return false;
-        if(root1.val==root2.val){
-            return isSubTreeD(root1.left, root2.left) &&  isSubTreeD(root1.right, root2.right);
-        }else{
+    //t1为head的树是否包含t2为head的树
+    public static boolean contains(Node t1,Node t2){
+        return check(t1,t2) || contains(t1.left,t2) || contains(t1.right,t2);
+    }
+
+    public static boolean check(Node t1,Node t2){
+        if(t2 == null){
+            return true;
+        }
+
+        if(t1 == null || t1.val != t2.val){
             return false;
         }
+
+        return check(t1.left,t2.left) && check(t1.right,t2.right);
     }
+
 
     public static void main(String[] args) {
 
         SubTree s = new SubTree();
 
-        TreeNode root1 = new TreeNode(1);
-        root1.left = new TreeNode(2);
-        root1.right = new TreeNode(3);
-        root1.left.left = new TreeNode(4);
-        root1.left.right = new TreeNode(5);
-        root1.right.left = new TreeNode(6);
-        root1.right.right = new TreeNode(7);
-        root1.right.left.left = new TreeNode(9);
-        root1.right.right.right = new TreeNode(10);
+        Node root1 = new Node(1);
+        root1.left = new Node(2);
+        root1.right = new Node(3);
+        root1.left.left = new Node(4);
+        root1.left.right = new Node(5);
+        root1.right.left = new Node(6);
+        root1.right.right = new Node(7);
+        root1.right.left.left = new Node(9);
+        root1.right.right.right = new Node(10);
 
-        TreeNode root2 = new TreeNode(1);
-        root2.left = new TreeNode(2);
-        root2.right = new TreeNode(3);
-        root2.left.left = new TreeNode(4);
-        root2.left.right = new TreeNode(5);
-        root2.right.left = new TreeNode(9);
-        root2.right.right = new TreeNode(10);
+        Node root2 = new Node(1);
+        root2.left = new Node(2);
+        root2.right = new Node(3);
+        root2.left.left = new Node(4);
+        root2.left.right = new Node(5);
+        root2.right.left = new Node(9);
+        root2.right.right = new Node(10);
 
         //System.out.println(s.isSubTree(root1,root2));
 

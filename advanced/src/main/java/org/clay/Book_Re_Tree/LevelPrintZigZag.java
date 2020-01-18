@@ -86,21 +86,21 @@ public class LevelPrintZigZag {
         while(!dq.isEmpty()){
             if(lr){     //从左到右
                 head = dq.pollFirst(); //从头部弹，
-                if(head.left != null){  //先弹左
+                if(head.left != null){  //先压左
                     nLast = nLast == null ? head.left : nLast;
                     dq.offerLast(head.left);  //从尾部进
                 }
-                if(head.right != null){ //再弹右
+                if(head.right != null){ //再压右
                     nLast = nLast == null ? head.right : nLast;
                     dq.offerLast(head.right);
                 }
             }else{  //从右到左
                 head = dq.pollLast();  //从尾部弹
-                if(head.right != null){  //先弹右
+                if(head.right != null){  //先压右
                     nLast = nLast == null ? head.right : nLast;
                     dq.offerFirst(head.right);
                 }
-                if(head.left != null){  //再弹左
+                if(head.left != null){  //再压左
                     nLast = nLast == null ? head.left : nLast;
                     dq.offerFirst(head.left);
                 }

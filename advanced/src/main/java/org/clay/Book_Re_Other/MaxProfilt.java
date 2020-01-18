@@ -76,6 +76,7 @@ public class MaxProfilt {
     public static void main(String[] args) {
 
         int[] arr = new int[]{7,1,5,3,6,4};
-        System.out.println(getMaxProfit2(arr));
+        int[] arr1 = new int[]{7,6,4,3,1};
+        System.out.println(getMaxProfit2(arr1));
     }
 }

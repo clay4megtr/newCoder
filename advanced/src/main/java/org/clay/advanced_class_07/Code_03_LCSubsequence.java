@@ -45,7 +45,7 @@ public class Code_03_LCSubsequence {
 	}
 
 	/**
-	 * 求dp数组，每个值代表对应位置str1和str2的最长公共子序列，dp[str1.length-1][str2.length]的值就是str1和str2的最长公共子序列的长度
+	 * 求dp数组，每个值代表对应位置str1和str2的最长公共子序列，dp[str1.length-1][str2.length-1]的值就是str1和str2的最长公共子序列的长度
 	 */
 	public static int[][] getdp(char[] str1, char[] str2) {
 		int[][] dp = new int[str1.length][str2.length];
