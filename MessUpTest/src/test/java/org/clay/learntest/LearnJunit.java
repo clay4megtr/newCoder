@@ -16,7 +16,6 @@ public class LearnJunit {
     //跑一个测试类的所有测试方法之前，会执行一次被@BeforeClass修饰的方法，执行完所有测试方法之后，会执行一遍被@AfterClass修饰的方法
     //这两个方法可以用来setup和release一些公共的资源，需要注意的是，被这两个annotation修饰的方法必须是静态的
 
-
     //每个方法执行前，都先执行这个方法
     @Before
     public void setup() {
