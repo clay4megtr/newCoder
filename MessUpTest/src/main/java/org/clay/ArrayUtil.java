@@ -12,8 +12,14 @@ public class ArrayUtil {
 
     public static void printArr(int[] arr){
 
-        Test1 test1 = new Test1();
-        test1.getName();
+        Test1 test2 = new Test1();
+        test2.getName();
+
+        Test1 test3 = new Test1();
+        test3.getName();
+
+        Test1 test4 = new Test1();
+        test4.getName();
 
         for(int num: arr){
             System.out.println(num);

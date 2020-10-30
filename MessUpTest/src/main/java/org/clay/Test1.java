@@ -4,6 +4,7 @@ public class Test1 {
 
     private Integer id;
     private String name;
+    private String other;
 
     public Integer getId() {
         return id;
@@ -19,5 +20,13 @@ public class Test1 {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 }
